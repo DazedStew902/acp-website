@@ -43,23 +43,34 @@
   let current = 0;
 
   // Utility: safest "viewport height" source for the overlay math.
-  const getMax = () => window.innerHeight || 1;
+    const getMax = () => {
+    const h = window.innerHeight || 1;
 
-  /* -----------------------------
+    // Mobile: require less scroll distance to fully dismiss
+    // (Feels much lighter while preserving the same visual design.)
+    return isMobile ? Math.round(h * 0.72) : h;
+  };
+
+    /* -----------------------------
      Tuning knobs (UX feel)
+     - Desktop: premium / weighty
+     - Mobile: faster + less “work”
   ------------------------------ */
-  const RESISTANCE = 0.65; // lower = heavier (0.55–0.75)
-  const SMOOTHING = 0.12;  // lower = more inertia (0.08–0.16)
-  const FADE_START = 0.30; // no fade until 30% scrolled
-  const FADE_END = 1.00;   // fully gone at 100%
+  const isMobile =
+    window.matchMedia?.("(max-width: 520px)")?.matches ?? false;
 
-  // Auto-dismiss once user is past 50% of the overlay height.
-  // This reduces friction and feels smoother/premium.
-  const AUTO_DISMISS_AT = 0.5;
+  // On mobile we want the overlay to move farther per swipe/wheel,
+  // and catch up faster so it doesn’t feel “stuck.”
+  const RESISTANCE = isMobile ? 1.15 : 0.65;     // higher = lighter/faster
+  const SMOOTHING = isMobile ? 0.22 : 0.12;      // higher = snappier
+  const FADE_START = isMobile ? 0.18 : 0.30;     // start fading sooner on mobile
+  const FADE_END = 1.00;
 
-    // Snap timing: how long after the last input we decide the user "stopped"
-  // (applies primarily to wheel/trackpad where there's no wheelend event)
-  const SNAP_DELAY_MS = 140;
+  // Mobile snaps away earlier (less scrolling required)
+  const AUTO_DISMISS_AT = isMobile ? 0.32 : 0.5;
+
+  // Faster snap detection on mobile
+  const SNAP_DELAY_MS = isMobile ? 90 : 140;
 
   // Clamp utility (keeps values within an expected range).
   const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -193,7 +204,8 @@
     e.preventDefault();
 
     const max = getMax();
-    target = clamp(target + dy * RESISTANCE, 0, max);
+        const touchBoost = isMobile ? 1.2 : 1.0;
+    target = clamp(target + dy * RESISTANCE * touchBoost, 0, max);
 
     // Update start to support continuous swipe.
     touchStartY = currentY;
@@ -571,11 +583,9 @@ const isInViewNow = () => {
 })();
 
 /* =========================================================
-   SERVICE PANEL PARALLAX + IN-VIEW ANIMATION
-   - Applies to any .service-panel with a .service-panel__img
-   - data-parallax controls intensity (recommended 0.12–0.22)
-   - Smooth both directions (down + up)
-   - Uses IntersectionObserver to avoid unnecessary work off-screen
+   SERVICE PANELS: In-view Reveal Only (No Parallax)
+   - Adds .is-visible for the content fade-in
+   - Zero transform work on scroll (mobile-safe)
 ========================================================= */
 (() => {
   const panels = Array.from(document.querySelectorAll(".service-panel"));
@@ -584,121 +594,26 @@ const isInViewNow = () => {
   const prefersReducedMotion =
     window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
-  // If reduced motion is enabled, skip parallax but still allow fade-in.
-  const parallaxEnabled = !prefersReducedMotion;
-
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-
-  // Track which panels are near the viewport (performance)
-  const activePanels = new Set();
-
-  let rafId = null;
-
-  /**
-   * Computes and applies parallax transforms for active panels.
-   * Uses requestAnimationFrame to keep scrolling smooth.
-   */
-  const update = () => {
-    // If takeover is active, pause parallax updates to prevent transform fights / jitter
-// If takeover is active, pause PARALLAX only — but still reveal content
-if (document.documentElement.classList.contains("is-takeover-active")) {
-  rafId = null;
-
-  // Still ensure panels become visible (prevents “blank until nudge”)
-  activePanels.forEach((panel) => {
-    panel.classList.add("is-visible");
-  });
-
-  return;
-}
-
-    rafId = null;
-    const vh = window.visualViewport?.height || window.innerHeight || 1;
-
-    activePanels.forEach((panel) => {
-      const img = panel.querySelector(".service-panel__img");
-      if (!img) return;
-
-      // Reveal animation for content
-      panel.classList.add("is-visible");
-
-      // Parallax (optional)
-      if (!parallaxEnabled) return;
-
-      const rect = panel.getBoundingClientRect();
-      const height = panel.offsetHeight || rect.height || 1;
-
-      /* --------------------------------------------------------
-         Progress mapping:
-         - When panel enters (top near bottom of viewport) => progress ~ 0
-         - When panel exits (bottom past top of viewport) => progress ~ 1
-      -------------------------------------------------------- */
-      const start = vh;
-      const end = -height;
-      const p = clamp((start - rect.top) / (start - end), 0, 1);
-
-      // Center progress around 0 for symmetric motion (-0.5..+0.5)
-      const centered = p - 0.5;
-
-      // Intensity controls how far the image moves (in pixels)
-      const baseIntensity = Number(panel.dataset.parallax || 0.18);
-const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity;
-      const maxShift = window.innerWidth < 980 ? 70 : 120; // overall motion ceiling (tweak 90–160)
-
-      const y = centered * 2 * maxShift * intensity;
-
-      // Keep the scale so we don't expose edges
-      img.style.transform = `translateY(${y.toFixed(2)}px) scale(1.06)`;
-    });
-  };
-
-  /**
-   * Throttle scroll/resize using RAF.
-   */
-  const requestUpdate = () => {
-    if (rafId != null) return;
-    rafId = window.requestAnimationFrame(update);
-  };
-
-  /**
-   * IntersectionObserver activates parallax only near viewport.
-   */
-  const onIntersect = (entries) => {
-    entries.forEach((entry) => {
-      const panel = entry.target;
-
-      if (entry.isIntersecting) {
-        activePanels.add(panel);
-      } else {
-        activePanels.delete(panel);
-
-        // Remove visibility class if you want it to re-animate on re-entry:
-        // panel.classList.remove("is-visible");
-        //
-        // Keeping it visible after first view is more “premium” and less distracting.
-      }
-    });
-
-    requestUpdate();
-  };
-
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(onIntersect, {
-      rootMargin: "20% 0px 20% 0px",
-      threshold: 0.01,
-    });
-
-    panels.forEach((panel) => observer.observe(panel));
-  } else {
-    // Fallback: everything active
-    panels.forEach((p) => activePanels.add(p));
+  if (prefersReducedMotion) {
+    panels.forEach((p) => p.classList.add("is-visible"));
+    return;
   }
 
-  window.addEventListener("scroll", requestUpdate, { passive: true });
-  window.addEventListener("resize", requestUpdate);
+  if (!("IntersectionObserver" in window)) {
+    panels.forEach((p) => p.classList.add("is-visible"));
+    return;
+  }
 
-  // Initial paint
-  requestUpdate();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      });
+    },
+    { rootMargin: "18% 0px 18% 0px", threshold: 0.01 }
+  );
+
+  panels.forEach((p) => observer.observe(p));
 })();
 
 /* =========================================================
@@ -746,22 +661,51 @@ const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity
 })();
 
 /* =========================================================
-   iOS VIEWPORT FIX
-   - Makes CSS height match the actual visible viewport on iPhone
-   - Prevents bottom gaps when using sticky/absolute layers + transforms
+   iOS VIEWPORT HEIGHT (SCROLL-STABLE)
+   - visualViewport.resize fires during scroll on iOS
+   - Freeze vh during scrolling to prevent layout thrash
 ========================================================= */
 (() => {
+  let rafId = null;
+  let frozen = false;
+
   const setVH = () => {
-    const h = window.visualViewport?.height || window.innerHeight || 1;
+    rafId = null;
+    if (frozen) return;
+
+    const h =
+      window.visualViewport?.height ||
+      window.innerHeight ||
+      document.documentElement.clientHeight;
+
     document.documentElement.style.setProperty("--vh", `${h * 0.01}px`);
   };
 
-  setVH();
-  window.addEventListener("resize", setVH);
-  window.visualViewport?.addEventListener("resize", setVH);
-  window.addEventListener("orientationchange", setVH);
-})();
+  const requestVH = () => {
+    if (rafId != null) return;
+    rafId = requestAnimationFrame(setVH);
+  };
 
+  // Freeze during active scroll
+  const onScrollStart = () => { frozen = true; };
+  const onScrollEnd = () => {
+    frozen = false;
+    requestVH();
+  };
+
+  let scrollTimeout;
+  window.addEventListener("scroll", () => {
+    onScrollStart();
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(onScrollEnd, 120);
+  }, { passive: true });
+
+  // Only update on real resizes / rotation
+  window.addEventListener("orientationchange", requestVH);
+  window.addEventListener("resize", requestVH);
+
+  requestVH();
+})();
 
 /* =========================================================
    TAKEOVER STACK DRIVER (Smoothed for Mobile)
@@ -783,6 +727,9 @@ const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity
   const panels = Array.from(viewport.querySelectorAll("[data-stack-panel]"));
   if (panels.length === 0) return;
 
+  const isMobile =
+  window.matchMedia?.("(max-width: 980px)")?.matches ?? false;
+
   // Let CSS scale scene height automatically
   scene.style.setProperty("--stackCount", String(panels.length));
 
@@ -797,11 +744,20 @@ const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity
   // Good mobile range: 0.12–0.18
   const SMOOTHING = 0.14;
 
-  let vh = window.visualViewport?.height || window.innerHeight || 1;
+  let vh =
+  (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--vh")) || 0) *
+    100 ||
+  (window.innerHeight || 1);
 
   // Scroll-driven target vs eased current
   let targetProgress = 0;  // 0..panels.length
   let currentProgress = 0; // 0..panels.length
+    // Direction-change stabilizer:
+  // iOS scroll input is bursty; reversing direction can cause the smoothed
+  // progress to “fight” the new target, producing a visible jump.
+  let lastTarget = 0;
+  let lastDir = 0;          // -1, 0, +1
+  let boostFrames = 0;      // temporarily increases smoothing to catch up
 
   let rafId = null;
 
@@ -832,19 +788,25 @@ const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity
     });
   };
 
-  /**
-   * Updates targetProgress from scroll position (fast, no heavy work).
-   */
-  const updateTargetFromScroll = () => {
-    const rect = scene.getBoundingClientRect();
+  const sceneTop = scene.offsetTop;
+const sceneHeight = scene.offsetHeight;
 
-    // Convert scroll position to “segment progress”
-    // 0..panels.length, where each 1.0 = one full-screen step
-    targetProgress = clamp((-rect.top) / vh, 0, panels.length);
+const updateTargetFromScroll = () => {
+  const scrollY = window.scrollY || window.pageYOffset;
+  const progressPx = scrollY - sceneTop;
 
-    // Kick the RAF loop if needed
-    if (rafId == null) rafId = window.requestAnimationFrame(tick);
-  };
+  const nextTarget = clamp(
+    progressPx / vh,
+    0,
+    panels.length
+  );
+
+  targetProgress = nextTarget;
+
+  if (rafId == null) {
+    rafId = requestAnimationFrame(tick);
+  }
+};
 
   /**
    * RAF ticker: ease currentProgress toward targetProgress for smooth motion.
@@ -853,12 +815,19 @@ const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity
     rafId = null;
 
     // Ease toward target
-    currentProgress += (targetProgress - currentProgress) * SMOOTHING;
+        // Temporarily increase smoothing when direction flips to prevent “jump”
+    const smoothingNow = boostFrames > 0 ? 0.34 : SMOOTHING;
+    if (boostFrames > 0) boostFrames -= 1;
+
+    currentProgress += (targetProgress - currentProgress) * smoothingNow;
 
     // Snap when extremely close (prevents endless micro-updates)
     if (Math.abs(targetProgress - currentProgress) < 0.0008) {
       currentProgress = targetProgress;
     }
+    if (!isMobile && lastDir !== 0 && dir !== 0 && dir !== lastDir) {
+  boostFrames = 10;
+}
 
     applyTransforms(currentProgress);
 
@@ -876,13 +845,17 @@ const intensity = window.innerWidth < 980 ? baseIntensity * 0.65 : baseIntensity
    * Resize: keep vh current (important on iOS address bar changes).
    */
   const onResize = () => {
-    vh = window.visualViewport?.height || window.innerHeight || 1;
-    updateTargetFromScroll();
-  };
+  vh =
+    (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--vh")) || 0) *
+      100 ||
+    (window.innerHeight || 1);
 
-  window.addEventListener("scroll", updateTargetFromScroll, { passive: true });
-  window.addEventListener("resize", onResize);
-  window.visualViewport?.addEventListener("resize", onResize);
+  updateTargetFromScroll();
+};
+
+window.addEventListener("scroll", updateTargetFromScroll, { passive: true });
+window.addEventListener("resize", onResize, { passive: true });
+window.addEventListener("orientationchange", onResize, { passive: true });
 
   // Initial paint
   updateTargetFromScroll();
