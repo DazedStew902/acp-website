@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACP Landscaping</title>
+  </head>
+
+  <body>
+    <!-- OVERLAY GREETING (shows once, then removed) -->
+    <div id="introOverlay" class="intro-overlay" aria-label="Welcome overlay">
+      <!-- Background image slot (optional) -->
+      <img
+        class="intro-overlay__bg"
+        src="images/intro-bg.jpg"
+        alt=""
+        aria-hidden="true"
+      />
+
+      <!-- Dark tint for luxury readability -->
+      <div class="intro-overlay__tint" aria-hidden="true"></div>
+
+      <div class="intro-overlay__content">
+        <!-- Logo image slot (optional) -->
+        <!-- Replace with your logo path or delete this img and keep text logo -->
+        <img
+          class="intro-overlay__logo"
+          src="images/logo.png"
+          alt="ACP Landscaping"
+        />
+
+        <!-- If you don’t have a logo yet, comment out the img above and use this:
+      <div class="intro-overlay__logo-text">ACP Landscaping</div>
+      -->
+
+        <p class="intro-overlay__headline">Thanks for visiting.</p>
+
+        <p class="intro-overlay__message">
+          We’re excited for you to see the
+          <span class="accent">ACP Landscaping Difference</span>. Scroll down to
+          learn more.
+        </p>
+
+        <!-- Promo slot -->
+        <p class="intro-overlay__promo">
+          Now booking spring cleanups & installs for the 2026 season.
+        </p>
+
+        <div class="intro-overlay__hint" aria-hidden="true">
+          <span>Scroll</span>
+          <span class="chev">⌄</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REAL WEBSITE CONTENT (always underneath) -->
+    <main class="site">
+      <header class="site-header" id="siteHeader">
+        <div class="site-header__inner">
+          <!-- Logo -->
+          <a
+            class="site-header__logo"
+            href="index.html"
+            aria-label="ACP Landscaping Home"
+          >
+            ACP Landscaping
+          </a>
+
+          <!-- Desktop Nav -->
+          <nav class="site-header__nav" aria-label="Primary navigation">
+            <a class="nav-btn" href="#home">Home</a>
+            <a class="nav-btn" href="#maintenance">General Maintenance</a>
+            <a class="nav-btn" href="#design">Design</a>
+            <a class="nav-btn" href="#development">Development</a>
+            <a class="nav-btn" href="#lawncare">Lawncare</a>
+            <a class="nav-btn" href="#commercial">Commercial Portfolio</a>
+            <a class="nav-btn" href="#residential">Residential Portfolio</a>
+            <a class="nav-btn" href="#about">Who we Are</a>
+          </nav>
+
+          <!-- Right controls (mobile + desktop) -->
+          <div class="site-header__actions">
+            <a
+              class="contact-btn"
+              href="tel:+17168227677"
+              aria-label="Contact us"
+            >
+              Contact Us
+            </a>
+
+            <button
+              class="burger"
+              id="burgerBtn"
+              aria-label="Open menu"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile dropdown menu -->
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a class="mobile-link" href="#home">Home</a>
+          <a class="mobile-link" href="#maintenance">General Maintenance</a>
+          <a class="mobile-link" href="#design">Design</a>
+          <a class="mobile-link" href="#development">Development</a>
+          <a class="mobile-link" href="#lawncare">Lawncare</a>
+          <a class="mobile-link" href="#commercial">Commercial Portfolio</a>
+          <a class="mobile-link" href="#residential">Residential Portfolio</a>
+          <a class="mobile-link" href="#about">Who we Are</a>
+        </div>
+      </header>
+
+      <!-- ===========================
+     HERO
+     - Background image (mobile + desktop)
+     - Two-level text (eyebrow + headline)
+     - Promo "Get an Estimate" box (animated)
+=========================== -->
+      <section id="home" class="hero" aria-label="Hero">
+        <!-- Responsive background image: mobile first, desktop upgrade -->
+        <picture class="hero__media" aria-hidden="true">
+          <!-- Desktop image -->
+          <source srcset="images/hero-desktop.jpg" media="(min-width: 900px)" />
+          <!-- Mobile image fallback -->
+          <img
+            src="images/hero-mobile.jpg"
+            alt=""
+            loading="eager"
+            decoding="async"
+            class="hero__img"
+          />
+        </picture>
+
+        <!-- Contrast overlay for readability -->
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <!-- Content -->
+        <div class="hero__inner">
+          <img
+            src="images/logo.png"
+            alt="ACP Landscaping"
+            class="hero__logo"
+            decoding="async"
+          />
+          <!-- Level 1 text (eyebrow) -->
+          <p class="hero__eyebrow">Experience</p>
+
+          <!-- Level 2 text (headline) -->
+          <h1 class="hero__headline">
+            Premium outdoor spaces,<br />
+            maintained with precision.
+          </h1>
+
+          <!-- Promo / Estimate box -->
+          <a
+            class="estimate-box"
+            href="estimate.html"
+            aria-label="Get an Estimate"
+          >
+            <div class="estimate-box__left">
+              <span class="estimate-box__title">Get an Estimate</span>
+              <span class="estimate-box__sub"
+                >Fast response • Clear pricing • No pressure</span
+              >
+            </div>
+
+            <div class="estimate-box__right" aria-hidden="true">
+              <span class="estimate-box__arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+  TAKEOVER SCENE: Checklist → Maintenance
+  - One sticky viewport (no stages)
+  - Two layers (checklist base, maintenance slides in)
+========================================================= -->
+      <div class="takeover-scene" id="takeoverScene">
+        <div class="takeover-viewport">
+          <!-- Base layer: Checklist -->
+          <section
+            id="checklist"
+            class="checklist"
+            aria-label="Company checklist"
+          >
+            <div class="checklist__inner">
+              <div class="checklist__left">
+                <img
+                  src="images/logo.png"
+                  alt="ACP Landscaping"
+                  class="checklist__logo"
+                  decoding="async"
+                  loading="lazy"
+                />
+
+                <h2 class="checklist__title">
+                  The <span class="checklist__title-accent">ACP</span> Standard
+                </h2>
+
+                <p class="checklist__subhead">
+                  Premium service, consistent execution, and a clean
+                  finish—every time.
+                </p>
+              </div>
+
+              <div class="checklist__right">
+                <ul
+                  class="checklist__list"
+                  aria-label="Accomplishments and values"
+                >
+                  <li
+                    class="checklist__item"
+                    data-text="100+ Clients Serviced"
+                  ></li>
+                  <li
+                    class="checklist__item"
+                    data-text="100% Satisfaction Rate"
+                  ></li>
+                  <li
+                    class="checklist__item"
+                    data-text="On Time &amp; Efficient"
+                  ></li>
+                  <li
+                    class="checklist__item"
+                    data-text="Personable, Customized Experience"
+                  ></li>
+                  <li
+                    class="checklist__item"
+                    data-text="10+ Years of Experience"
+                  ></li>
+                  <li
+                    class="checklist__item"
+                    data-text="Young and Motivated"
+                  ></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Top layer: Maintenance (slides in) -->
+          <section
+            id="maintenance"
+            class="service-panel service-panel--maintenance"
+            aria-label="General Maintenance"
+            data-parallax="0.18"
+            data-stack-panel
+          >
+            <picture class="service-panel__media" aria-hidden="true">
+              <source
+                srcset="images/maintenance-desktop.jpg"
+                media="(min-width: 900px)"
+              />
+              <img
+                src="images/maintenance-mobile.jpg"
+                alt=""
+                class="service-panel__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+
+            <div class="service-panel__overlay" aria-hidden="true"></div>
+
+            <div class="service-panel__inner">
+              <p class="service-panel__kicker">Services</p>
+
+              <h2 class="service-panel__title">General Maintenance</h2>
+
+              <p class="service-panel__desc">
+                Spring &amp; fall cleanups, mulching, weeding, trimming,
+                pressure washing, and ongoing upkeep—handled with precision and
+                care.
+              </p>
+
+              <a
+                class="service-panel__btn"
+                href="maintenance.html"
+                aria-label="Learn more about General Maintenance"
+              >
+                Learn More
+              </a>
+            </div>
+          </section>
+
+          <!-- Top layer: Design (slides in after Maintenance) -->
+          <section
+            id="design"
+            class="service-panel service-panel--design"
+            aria-label="Design"
+            data-parallax="0.18"
+            data-stack-panel
+          >
+            <picture class="service-panel__media" aria-hidden="true">
+              <source
+                srcset="images/design-desktop.jpg"
+                media="(min-width: 900px)"
+              />
+              <img
+                src="images/design-mobile.jpg"
+                alt=""
+                class="service-panel__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+
+            <div class="service-panel__overlay" aria-hidden="true"></div>
+
+            <div class="service-panel__inner">
+              <p class="service-panel__kicker">Services</p>
+
+              <h2 class="service-panel__title">Design</h2>
+
+              <p class="service-panel__desc">
+                Landscape design, bed layouts, plant selection, and hardscape
+                planning—built around your space and your goals.
+              </p>
+
+              <a
+                class="service-panel__btn"
+                href="design.html"
+                aria-label="Learn more about Design"
+              >
+                Learn More
+              </a>
+            </div>
+          </section>
+          <!-- Top layer: Development (stacks after Design) -->
+          <section
+            id="development"
+            class="service-panel service-panel--development"
+            aria-label="Development"
+            data-parallax="0.18"
+            data-stack-panel
+          >
+            <!-- Responsive background image (mobile + desktop) -->
+            <picture class="service-panel__media" aria-hidden="true">
+              <source
+                srcset="images/development-desktop.jpg"
+                media="(min-width: 900px)"
+              />
+              <img
+                src="images/development-mobile.jpg"
+                alt=""
+                class="service-panel__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+
+            <!-- Readability overlay -->
+            <div class="service-panel__overlay" aria-hidden="true"></div>
+
+            <!-- Content (matches Maintenance/Design format) -->
+            <div class="service-panel__inner">
+              <p class="service-panel__kicker">Services</p>
+
+              <h2 class="service-panel__title">Development</h2>
+
+              <p class="service-panel__desc">
+                Hardscapes, patios, walkways, grading, drainage solutions, and
+                outdoor builds—executed with craftsmanship and clean site
+                standards.
+              </p>
+
+              <a
+                class="service-panel__btn"
+                href="development.html"
+                aria-label="Learn more about Development"
+              >
+                Learn More
+              </a>
+            </div>
+          </section>
+          <!-- Top layer: Lawncare (stacks after Development) -->
+          <section
+            id="lawncare"
+            class="service-panel service-panel--lawncare"
+            aria-label="Lawncare"
+            data-parallax="0.18"
+            data-stack-panel
+          >
+            <picture class="service-panel__media" aria-hidden="true">
+              <source
+                srcset="images/lawncare-desktop.jpg"
+                media="(min-width: 900px)"
+              />
+              <img
+                src="images/lawncare-mobile.jpg"
+                alt=""
+                class="service-panel__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+
+            <div class="service-panel__overlay" aria-hidden="true"></div>
+
+            <div class="service-panel__inner">
+              <p class="service-panel__kicker">Services</p>
+
+              <h2 class="service-panel__title">Lawncare</h2>
+
+              <p class="service-panel__desc">
+                Mowing, edging, seasonal fertilization, aeration, overseeding,
+                and clean striping—kept consistent so your property always looks
+                sharp.
+              </p>
+
+              <a
+                class="service-panel__btn"
+                href="lawncare.html"
+                aria-label="Learn more about Lawncare"
+              >
+                Learn More
+              </a>
+            </div>
+          </section>
+          <!-- Top layer: Commercial Portfolio (stacks after Lawncare) -->
+          <section
+            id="commercial"
+            class="service-panel service-panel--commercial"
+            aria-label="Commercial Portfolio"
+            data-parallax="0.18"
+            data-stack-panel
+          >
+            <picture class="service-panel__media" aria-hidden="true">
+              <source
+                srcset="images/commercial-desktop.jpg"
+                media="(min-width: 900px)"
+              />
+              <img
+                src="images/commercial-mobile.jpg"
+                alt=""
+                class="service-panel__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+
+            <div class="service-panel__overlay" aria-hidden="true"></div>
+
+            <div class="service-panel__inner">
+              <p class="service-panel__kicker">Portfolio</p>
+
+              <h2 class="service-panel__title">Commercial</h2>
+
+              <p class="service-panel__desc">
+                Reliable maintenance, clean lines, and professional curb appeal
+                for offices, storefronts, and managed properties—built to
+                impress year-round.
+              </p>
+
+              <a
+                class="service-panel__btn"
+                href="commercial.html"
+                aria-label="View Commercial Portfolio"
+              >
+                Learn More
+              </a>
+            </div>
+          </section>
+          <!-- Top layer: Residential Portfolio (stacks after Commercial) -->
+          <section
+            id="residential"
+            class="service-panel service-panel--residential"
+            aria-label="Residential Portfolio"
+            data-parallax="0.18"
+            data-stack-panel
+          >
+            <picture class="service-panel__media" aria-hidden="true">
+              <source
+                srcset="images/residential-desktop.jpg"
+                media="(min-width: 900px)"
+              />
+              <img
+                src="images/residential-mobile.jpg"
+                alt=""
+                class="service-panel__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+
+            <div class="service-panel__overlay" aria-hidden="true"></div>
+
+            <div class="service-panel__inner">
+              <p class="service-panel__kicker">Portfolio</p>
+
+              <h2 class="service-panel__title">Residential</h2>
+
+              <p class="service-panel__desc">
+                Outdoor spaces tailored to your home—clean installs, thoughtful
+                plant selection, and detail-focused maintenance that stays
+                looking premium.
+              </p>
+
+              <a
+                class="service-panel__btn"
+                href="residential.html"
+                aria-label="View Residential Portfolio"
+              >
+                Learn More
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- =========================================================
+           SECTION: Locations Serviced
+           - Normal scrolling resumes after takeover-scene ends
+           - Premium dark style to match hero/checklist
+           - Includes space for a brand image (logo + optional photo)
+      ========================================================== -->
+      <section
+        id="locations"
+        class="locations"
+        aria-label="Locations Serviced"
+        data-reveal
+      >
+        <div class="locations__inner">
+          <!-- Left: Copy -->
+          <div class="locations__content">
+            <p class="locations__kicker">Service Area</p>
+
+            <h2 class="locations__title">Locations Serviced</h2>
+
+            <p class="locations__lead">
+              Based in <strong>Orchard Park</strong>, we proudly serve the
+              Southtowns and surrounding areas with premium, detail-focused
+              outdoor care.
+            </p>
+
+            <ul class="locations__list" aria-label="Cities we service">
+              <li class="locations__item">Orchard Park</li>
+              <li class="locations__item">Hamburg</li>
+              <li class="locations__item">East Aurora</li>
+              <li class="locations__item">Elma</li>
+              <li class="locations__item">Lancaster</li>
+              <li class="locations__item">Buffalo</li>
+              <li class="locations__item">Cheektowaga</li>
+              <li class="locations__item">West Seneca</li>
+              <li class="locations__item">Clarence</li>
+            </ul>
+
+            <!-- Optional CTA slot (keep or delete) -->
+            <a
+              class="locations__cta"
+              href="estimate.html"
+              aria-label="Request an estimate"
+            >
+              Request an Estimate
+            </a>
+          </div>
+
+          <!-- Right: Image slot -->
+          <div class="locations__media" aria-label="Service area image">
+            <!-- Replace src with your preferred photo or map-style image -->
+            <img
+              class="locations__img"
+              src="images/locations.jpg"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+
+            <!-- Logo overlay (re-uses your existing logo file) -->
+            <img
+              class="locations__logo"
+              src="images/logo.png"
+              alt="ACP Landscaping"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+      <!-- =========================================================
+     FOOTER (Global)
+     - Minimal, premium, consistent across pages
+     - Includes quick contact + service area
+========================================================== -->
+      <footer class="site-footer" aria-label="Site footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__top">
+            <a
+              class="site-footer__brand"
+              href="index.html"
+              aria-label="ACP Landscaping Home"
+            >
+              ACP Landscaping
+            </a>
+
+            <div class="site-footer__actions" aria-label="Footer quick actions">
+              <a
+                class="footer-btn"
+                href="tel:+17168227677"
+                aria-label="Call ACP Landscaping"
+              >
+                Call
+              </a>
+              <a
+                class="footer-btn footer-btn--primary"
+                href="estimate.html"
+                aria-label="Request an estimate"
+              >
+                Get an Estimate
+              </a>
+            </div>
+          </div>
+
+          <p class="site-footer__meta">
+            Orchard Park, NY • Serving Hamburg, East Aurora, Elma, Lancaster,
+            Buffalo, Cheektowaga, West Seneca &amp; Clarence
+          </p>
+
+          <div class="site-footer__bottom">
+            <small class="site-footer__copyright">
+              &copy; <span id="year"></span> ACP Landscaping. All Rights
+              Reserved.
+            </small>
+
+            <small class="site-footer__note">
+              Premium outdoor spaces, maintained with precision.
+            </small>
+          </div>
+        </div>
+      </footer>
+      <script src="js/main.js"></script>
+    </main>
+  </body>
+</html>

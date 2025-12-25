@@ -1,0 +1,1630 @@
+/* ===== Reset ===== */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark-green: #8FDBA2;
+  --mint-green: #407D4B;
+  --white: #EDEDED;
+  --sky-blue: #94D6FF;
+  --black: #262626;
+
+  --bg: var(--white);
+  --text: var(--black);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+/* Prevent fixed elements with padding from exceeding their height */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ===== Overlay Greeting ===== */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  height: 100svh;               /* exactly one screen on mobile */
+  width: 100%;
+  z-index: 9999;
+  will-change: transform, opacity;
+
+  /* scroll-dismiss animation target */
+  transform: translateY(var(--introY, 0px));
+  opacity: var(--introOpacity, 1);
+  transition: opacity 160ms linear;
+
+  overflow: hidden;
+  background: #0f0f0f;          /* fallback if no bg image */
+}
+
+.intro-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* your background photo looks premium */
+  transform: scale(1.02);       /* tiny upscale = luxe feel */
+}
+
+.intro-overlay__tint {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 500px at 20% 20%, rgba(148,214,255,0.14), transparent 55%),
+    radial-gradient(900px 600px at 80% 70%, rgba(143,219,162,0.12), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+}
+
+.intro-overlay__content {
+  position: relative;
+  height: 100%;
+  width: min(720px, 92vw);
+  margin: 0 auto;
+  padding: clamp(18px, 4vw, 36px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+
+  color: rgba(237, 237, 237, 0.92);
+}
+
+.intro-overlay__logo {
+  width: clamp(120px, 28vw, 180px);
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.intro-overlay__logo-text {
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: rgba(237, 237, 237, 0.85);
+}
+
+.intro-overlay__headline {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: -0.6px;
+  line-height: 1.08;
+  color: rgba(237, 237, 237, 0.96);
+}
+
+.intro-overlay__message {
+  font-size: clamp(1.05rem, 2.3vw, 1.2rem);
+  max-width: 54ch;
+  color: rgba(237, 237, 237, 0.86);
+}
+
+.accent { color: var(--dark-green); font-weight: 650; }
+
+.intro-overlay__promo {
+  margin-top: 4px;
+  color: rgba(148, 214, 255, 0.92);
+  font-size: 0.95rem;
+}
+
+.intro-overlay__hint {
+  margin-top: 10px;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  color: rgba(237, 237, 237, 0.72);
+  font-size: 0.95rem;
+}
+
+.chev {
+  display: inline-block;
+  transform: translateY(0);
+  animation: nudge 1.2s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* If user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .chev { animation: none; }
+}
+
+/* ===== Real site (placeholder) ===== */
+.site {
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 72px) clamp(16px, 5vw, 64px);
+}
+
+/* ===========================
+   HEADER (Monarch-inspired)
+=========================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  /* black rectangle w/ transparency */
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Contact button (outlined white box) + animation */
+.contact-btn {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+
+  text-decoration: none;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.85);
+  padding: 9px 16px;
+  border-radius: 12px;
+
+  font-weight: 650;
+  font-size: 0.95rem;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+
+  background: transparent;
+  isolation: isolate;
+
+  transition:
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.contact-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(64, 125, 75, 0.35) 40%,
+    rgba(64, 125, 75, 0.55) 60%,
+    transparent 100%
+  );
+
+  transform: translateX(-110%);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: -1;
+}
+
+/* Desktop hover */
+.contact-btn:hover {
+  color: var(--mint-green);
+  border-color: var(--mint-green);
+}
+
+.contact-btn:hover::before {
+  transform: translateX(110%);
+}
+
+/* Mobile tap */
+.contact-btn:active {
+  color: var(--mint-green);
+  border-color: var(--mint-green);
+}
+
+/* Burger */
+.burger {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.30);
+  background: transparent;
+  cursor: pointer;
+
+  display: grid;
+  place-content: center;
+  gap: 5px;
+}
+
+.burger span {
+  width: 18px;
+  height: 2px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 999px;
+  transition: transform 180ms ease, opacity 180ms ease, background 180ms ease;
+}
+
+/* Burger -> X */
+.burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-btn {
+  text-decoration: none;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.70);
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-weight: 650;
+  font-size: 0.9rem;
+  line-height: 1;
+  white-space: nowrap;
+
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.nav-btn:hover {
+  color: var(--mint-green);
+  border-color: var(--mint-green);
+}
+
+/* Mobile dropdown menu */
+.mobile-menu {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px clamp(14px, 3vw, 28px) 14px;
+
+  display: grid;
+  gap: 10px;
+
+  /* animated dropdown */
+  transform-origin: top;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.mobile-menu.is-open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* animate UP when closing */
+.mobile-menu.is-closing {
+  transform: translateY(-12px);
+  opacity: 0;
+}
+
+.mobile-link {
+  text-decoration: none;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.70);
+  padding: 11px 12px;
+  border-radius: 12px;
+  font-weight: 650;
+
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+/* Mint green on press / tap */
+.mobile-link:active,
+.mobile-link.is-pressed {
+  color: var(--mint-green);
+  border-color: var(--mint-green);
+}
+
+/* ===== Header layout (mobile + desktop safe) ===== */
+.site-header__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 12px clamp(14px, 2vw, 26px);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo: locked to left */
+.site-header__logo {
+  flex: 0 0 auto;
+  text-decoration: none;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 750;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Nav: uses remaining space, never pushes CTA off screen */
+.site-header__nav {
+  flex: 1 1 auto;
+  min-width: 0;              /* CRITICAL */
+  display: none;             /* hidden on mobile */
+  justify-content: center;
+  gap: 10px;
+
+  overflow-x: auto;          /* safe overflow */
+  white-space: nowrap;
+  scrollbar-width: none;
+
+  padding: 2px 16px;
+}
+
+.site-header__nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Actions (Contact + Burger): locked right */
+.site-header__actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Desktop breakpoint */
+@media (min-width: 980px) {
+  .site-header__nav { display: flex; }
+  .burger { display: none; }
+}
+
+/* Ensure [hidden] always wins */
+[hidden] { display: none !important; }
+
+.mobile-menu[hidden] { display: none !important; }
+
+/* Header darkens when scrolled */
+.site-header.is-scrolled {
+  background: rgba(0, 0, 0, 0.78);
+  border-bottom-color: rgba(255,255,255,0.18);
+}
+
+/* Naviagtion buttons animate when clicked */
+.nav-btn.is-active {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.85);
+  position: relative;
+}
+.nav-btn.is-active::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -6px;
+  height: 2px;
+  background: var(--mint-green);
+  border-radius: 999px;
+}
+
+/* Scroll state compacts header */
+.site-header.is-scrolled .site-header__inner { padding-top: 9px; padding-bottom: 9px; }
+.site-header.is-scrolled { background: rgba(0,0,0,0.78); }
+
+/* ===========================
+   HERO
+   Notes:
+   - Mobile-first background image
+   - Overlay for luxury contrast
+   - Simple text hierarchy
+   - Animated estimate promo box
+=========================== */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+
+  /* Keeps hero content from hiding behind fixed header */
+  padding-top: 88px;
+
+  display: grid;
+  align-items: end;
+}
+
+/* Media wrapper */
+.hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Slight upscale removes edge artifacts */
+  transform: scale(1.02);
+}
+
+/* Contrast overlay */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.16), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.12), transparent 62%),
+    linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.58), transparent 72%);
+}
+
+/* Content container */
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+
+  padding: clamp(22px, 5vw, 72px) 0 clamp(28px, 6vw, 88px);
+  color: var(--white);
+}
+
+/* Hero logo */
+.hero__logo {
+  width: clamp(140px, 28vw, 240px);
+  max-height: 84px;
+  height: auto;
+  display: block;
+
+  /* 
+    Vertical spacing:
+    Pushes eyebrow text down while keeping logo visually anchored.
+    clamp() ensures consistent spacing across devices.
+  */
+  margin-bottom: clamp(22px, 5vw, 36px);
+
+  object-fit: contain;
+  object-position: left center;
+
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.35));
+}
+
+/* Two levels of text */
+.hero__eyebrow {
+  font-size: 0.88rem;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(237, 237, 237, 0.82);
+}
+
+.hero__headline {
+  font-size: clamp(2.1rem, 6.2vw, 4.0rem);
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  color: rgba(237,237,237,0.96);
+  margin-bottom: 18px;
+  max-width: 18ch;
+}
+
+/* ===========================
+   "Get an Estimate" Promo Box
+   - Luxury animation: sweep + subtle lift
+   - No layout shift (pure transform)
+=========================== */
+
+.estimate-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  width: min(560px, 100%);
+  text-decoration: none;
+
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  /* Transparent black box with crisp outline */
+  background: rgba(0,0,0,0.34);
+  border: 1px solid rgba(255,255,255,0.55);
+
+  color: rgba(237,237,237,0.92);
+
+  /* Smooth, premium motion */
+  transform: translateY(0);
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms ease,
+    color 240ms ease;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Animated sweep layer */
+.estimate-box::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(64,125,75,0.24) 40%,
+    rgba(64,125,75,0.42) 55%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+/* Copy */
+.estimate-box__title {
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 1.05rem;
+}
+
+.estimate-box__sub {
+  display: block;
+  margin-top: 3px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: rgba(237,237,237,0.78);
+}
+
+.estimate-box__right {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,0.40);
+  background: rgba(255,255,255,0.06);
+}
+
+.estimate-box__arrow {
+  font-size: 1.1rem;
+  color: rgba(237,237,237,0.90);
+  transform: translateX(0);
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover / focus states */
+.estimate-box:hover {
+  border-color: var(--mint-green);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.estimate-box:hover::before {
+  transform: translateX(120%);
+}
+
+.estimate-box:hover .estimate-box__arrow {
+  transform: translateX(3px);
+}
+
+/* Tap / active */
+.estimate-box:active {
+  border-color: var(--mint-green);
+  transform: translateY(-1px);
+}
+
+/* Accessibility: keyboard focus */
+.estimate-box:focus-visible {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 3px;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .estimate-box,
+  .estimate-box::before,
+  .estimate-box__arrow {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   CHECKLIST SECTION (Premium Layout + Background)
+   - Mobile: stacked, centered
+   - Desktop: 2-column, left branding + right checklist
+   - Background: dark luxury + subtle mint/blue glows (matches hero/header)
+========================================================= */
+
+.checklist {
+  position: relative;
+  overflow: visible;
+
+  /* Comfortable spacing without feeling empty */
+  padding: clamp(56px, 8vw, 110px) 0;
+
+  color: var(--white);
+
+  /* ---------- Background Option A (recommended) ----------
+     Luxury dark base + subtle brand glows
+     - Keeps continuity with hero/header glass aesthetic
+     ------------------------------------------------------ */
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.10), transparent 62%),
+    linear-gradient(180deg, rgba(0,0,0,0.86), rgba(0,0,0,0.92));
+}
+
+/* =========================================================
+   HERO → CHECKLIST TRANSITION
+   - Soft vertical fade to avoid hard section boundary
+   - Preserves both section designs
+========================================================= */
+.checklist::after {
+  content: "";
+  position: absolute;
+  top: -120px;          /* overlaps the bottom of the hero */
+  left: 0;
+  right: 0;
+  height: 120px;
+
+  pointer-events: none;
+
+  /* Fade from hero darkness into checklist background */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 40%,
+    rgba(0, 0, 0, 0.75) 70%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+}
+
+@media (min-width: 980px) {
+  .checklist::after {
+    top: -160px;
+    height: 160px;
+  }
+}
+
+/* Optional subtle “sheen” layer to keep it from feeling flat */
+.checklist::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.06) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(255,255,255,0.05) 100%
+  );
+  opacity: 0.55;
+}
+
+/* Inner layout container */
+.checklist__inner {
+  position: relative; /* stays above background layers */
+  z-index: 1;
+
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+
+  display: grid;
+  gap: clamp(18px, 3vw, 36px);
+
+  /* Mobile default: stacked */
+  grid-template-columns: 1fr;
+  align-items: start;
+  text-align: center;
+}
+
+/* Desktop: two-column */
+@media (min-width: 980px) {
+  .checklist__inner {
+    grid-template-columns: 0.95fr 1.25fr;
+    text-align: left;
+    align-items: center;
+  }
+}
+
+/* Left column */
+.checklist__left {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 980px) {
+  .checklist__left {
+    justify-items: start;
+  }
+}
+
+/* Logo: fade-in (JS toggles .is-visible) */
+.checklist__logo {
+  width: clamp(140px, 18vw, 220px);
+  height: auto;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 460ms ease, transform 460ms ease;
+
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.28));
+}
+
+.checklist__logo.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Title: emphasized, premium hierarchy */
+.checklist__title {
+  font-size: clamp(1.55rem, 3.6vw, 2.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.9px;
+  font-weight: 850;
+
+  color: rgba(237, 237, 237, 0.96);
+
+  margin-top: 4px;
+}
+
+/* Accent the brand keyword */
+.checklist__title-accent {
+  color: var(--dark-green);
+  text-shadow: 0 10px 22px rgba(143, 219, 162, 0.18);
+}
+
+/* =========================================================
+   CHECKLIST TITLE RULE (Scroll-reactive)
+   - Uses transform scaling for smooth animation
+   - JS drives the scale via --ruleScale (0..1)
+========================================================= */
+.checklist__title::after {
+  content: "";
+  display: block;
+
+  width: 92px;              /* base width at full expansion */
+  height: 2px;
+  margin: 12px auto 0;
+
+  background: rgba(143, 219, 162, 0.75);
+  border-radius: 999px;
+
+  /* Start collapsed; JS increases this smoothly */
+  /* Allow a bit of “overshoot” for a stronger effect */
+transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
+  transform-origin: center;
+  transition: transform 120ms linear; /* keeps it responsive but not jittery */
+}
+
+@media (min-width: 980px) {
+  .checklist__title::after {
+    margin-left: 0;
+    margin-right: 0;
+
+    /* Expand from the left on desktop (more “designed”) */
+    transform-origin: left;
+  }
+}
+
+/* Supporting line so left column doesn't feel empty */
+.checklist__subhead {
+  max-width: 44ch;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.80);
+}
+
+/* Right column */
+.checklist__right {
+  width: 100%;
+}
+
+/* Checklist list container */
+.checklist__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  gap: 12px;
+
+  width: 100%;
+}
+
+/* Individual typed line (premium card) */
+.checklist__item {
+  position: relative;
+
+  padding: 14px 16px 14px 44px;
+  border-radius: 16px;
+
+  /* Glassy card effect consistent with your site */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  font-weight: 750;
+  font-size: clamp(1.0rem, 1.65vw, 1.08rem);
+  letter-spacing: 0.15px;
+
+  /* Prevent layout shift while typing */
+  min-height: 52px;
+
+  color: rgba(237, 237, 237, 0.94);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+/* “Check” marker, upgraded to a small badge */
+.checklist__item::before {
+  content: "✓";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(143, 219, 162, 0.18);
+  border: 1px solid rgba(143, 219, 162, 0.30);
+  color: rgba(237, 237, 237, 0.92);
+
+  font-weight: 900;
+
+  /* Start subtle by default (before armed) */
+  transform: translateY(-50%) scale(0.92);
+  opacity: 0.65;
+
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+}
+
+.checklist__item.is-armed::before {
+  /* “Pop” to full presence right before typing */
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Cursor effect while typing (JS toggles .is-typing) */
+.checklist__item.is-typing::after {
+  content: "";
+  display: inline-block;
+
+  width: 10px;
+  height: 1.05em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+
+  background: rgba(237, 237, 237, 0.9);
+  animation: checklistCursor 720ms steps(1) infinite;
+}
+
+@keyframes checklistCursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Reduced motion: show content instantly and remove animation */
+@media (prefers-reduced-motion: reduce) {
+  .checklist__logo {
+    transition: none;
+  }
+
+  .checklist__item.is-typing::after {
+    animation: none;
+  }
+}
+/* =========================================================
+   SERVICE PANEL (Minimal / Non-boxy)
+   - Full-height like the hero
+   - Clean text overlay on image
+   - Single CTA button ("Learn More")
+   - Parallax image transform driven by JS
+========================================================= */
+
+.service-panel {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+
+  /* Keeps content from hiding behind fixed header */
+  padding-top: 88px;
+
+  display: grid;
+  align-items: end;
+}
+
+/* Background media wrapper */
+.service-panel__media {
+  position: absolute;
+  inset: 0;
+}
+
+/* Parallax target (JS updates translateY) */
+.service-panel__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Slight upscale prevents edges showing during parallax movement */
+  transform: translateY(0) scale(1.06);
+  will-change: transform;
+}
+
+/* Readability overlay (keeps text legible without “boxing” it) */
+.service-panel__overlay {
+  position: absolute;
+  inset: 0;
+
+  /* Bottom-heavy darkness so the image stays crisp up top */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.52) 35%,
+    rgba(0, 0, 0, 0.22) 70%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+}
+
+/* Content container (kept minimal and spacious) */
+.service-panel__inner {
+  position: relative;
+  z-index: 2;
+
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+
+  /* Good breathing room on mobile and desktop */
+  padding: clamp(22px, 5vw, 72px) 0 clamp(34px, 7vw, 108px);
+
+  /* Enter animation (JS toggles .is-visible on the section) */
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+/* Smoothly animate content in when section enters view */
+.service-panel.is-visible .service-panel__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typography */
+.service-panel__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(237, 237, 237, 0.76);
+  margin-bottom: 10px;
+}
+
+.service-panel__title {
+  font-size: clamp(2.0rem, 5.2vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.9px;
+  font-weight: 900;
+  color: rgba(237, 237, 237, 0.96);
+
+  margin-bottom: 12px;
+}
+
+.service-panel__desc {
+  font-size: clamp(1.02rem, 2.2vw, 1.15rem);
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.82);
+
+  max-width: 60ch;
+  margin-bottom: 18px;
+}
+
+/* CTA Button (simple, premium, non-boxy) */
+.service-panel__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  color: rgba(237, 237, 237, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.service-panel__btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(143, 219, 162, 0.70);
+  color: var(--white);
+}
+
+.service-panel__btn:active {
+  transform: translateY(-1px);
+}
+
+/* Reduced motion: keep things stable */
+@media (prefers-reduced-motion: reduce) {
+  .service-panel__img {
+    transform: scale(1.02);
+  }
+
+  .service-panel__inner,
+  .service-panel__btn {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   TAKEOVER SCENE (Scalable Stacking)
+   - Scene height scales with number of [data-stack-panel] layers
+   - One sticky viewport
+   - Checklist is the base layer
+   - Each stack panel starts off-screen and slides up via JS transform
+========================================================= */
+.takeover-scene {
+  position: relative;
+
+  /* JS sets --stackCount (number of panels). Default 1. */
+  height: calc((var(--stackCount, 1) + 1) * (var(--vh, 1vh) * 100));
+
+  overflow-anchor: none;
+  background: #000; /* prevent any white bleed */
+}
+
+.takeover-viewport {
+  position: sticky;
+  top: 0;
+
+  /* Use the JS-calibrated viewport height for iOS correctness */
+  height: calc(var(--vh, 1vh) * 100);
+
+  overflow: hidden; /* crucial: no layout bleed / gaps */
+}
+
+/* Base layer (Checklist) */
+.takeover-viewport > #checklist {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+/* Stack layers (Maintenance, Design, Development, etc.) */
+.takeover-viewport > [data-stack-panel] {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+
+  /* Start off-screen; JS will drive translateY(100% → 0%) */
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* =========================================================
+   TAKEOVER-SCOPED OVERRIDES (so your existing section CSS behaves fullscreen)
+   - Your .checklist has huge vertical padding; inside a fullscreen layer
+     that padding creates overflow and weird "gaps".
+   - Move that spacing to the inner container instead.
+========================================================= */
+.takeover-viewport > #checklist{
+  height: 100svh;
+  padding: 0;                 /* override the big section padding */
+  display: grid;
+  align-items: center;
+
+  /* Keep your existing background */
+  overflow: hidden;
+}
+
+.takeover-viewport > #checklist .checklist__inner{
+  padding: 88px 0;            /* account for fixed header + breathing room */
+}
+
+/* Maintenance is already fullscreen, but keep it strict */
+.takeover-viewport > #maintenance{
+  height: 100svh;
+}
+/* =========================================================
+   MOBILE PERFORMANCE PATCH
+   - iOS Safari struggles with backdrop-filter on many elements
+   - keep the look, but drop the expensive blur on small screens
+========================================================= */
+@media (max-width: 980px) {
+  .checklist__item {
+    /* keep glass look but remove heavy blur */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+    /* slightly increase opacity so it still looks premium */
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* =========================================================
+   TAKEOVER PERFORMANCE HELPERS (Safe)
+   - DO NOT set transform here (JS owns it)
+   - contain reduces paint scope
+========================================================= */
+.takeover-viewport > [data-stack-panel],
+.takeover-viewport > #checklist {
+  contain: layout paint style;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.service-panel__img {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0) scale(1.06);
+}
+
+/* =========================================================
+   TAKEOVER: Mobile content fit + safe area
+   - Prevents CTA from being pushed below the viewport
+========================================================= */
+#takeoverScene #maintenance .service-panel__inner{
+  /* your default bottom padding is huge; shrink it in takeover */
+  padding-bottom: clamp(22px, 5vw, 52px);
+
+  /* iPhone safe-area so the button never sits under the home indicator */
+  padding-bottom: calc(clamp(22px, 5vw, 52px) + env(safe-area-inset-bottom, 0px));
+}
+
+/* Optional: if the text still feels low on very short screens */
+@media (max-width: 520px) {
+  #takeoverScene #maintenance .service-panel__inner{
+    padding-top: clamp(16px, 4vw, 36px);
+  }
+}
+
+/* =========================================================
+   TAKEOVER: Mobile fix for missing CTA + dark bottom gap
+   Root cause:
+   - .service-panel { align-items: end; } pushes content down
+   - takeover viewport uses overflow:hidden, so CTA gets clipped
+========================================================= */
+@media (max-width: 980px) {
+
+  /* 1) Don't bottom-align the maintenance content during takeover */
+  #takeoverScene .takeover-viewport > #maintenance.service-panel{
+    align-items: center;                 /* was: end */
+  }
+
+  /* 2) Make the inner block "fit" the viewport and keep CTA visible */
+  #takeoverScene #maintenance .service-panel__inner{
+    width: min(1100px, 92vw);
+    margin: 0 auto;
+
+    /* cap the total height so it can't drop below the fold */
+    max-height: calc(100svh - 88px - env(safe-area-inset-bottom, 0px));
+    overflow: visible;
+
+    /* tighter, predictable padding */
+    padding-top: clamp(18px, 4vw, 36px);
+    padding-bottom: calc(clamp(18px, 4vw, 36px) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* 3) If text still runs long, allow a tiny bit smaller spacing */
+  #takeoverScene #maintenance .service-panel__desc{
+    margin-bottom: 12px;
+  }
+}
+
+/* =========================================================
+   FIX: Remove big empty space at bottom of checklist (mobile)
+   Cause: takeover checklist layer is vertically centered
+========================================================= */
+@media (max-width: 980px) {
+  .takeover-viewport > #checklist{
+    align-items: start; /* was: center */
+  }
+
+  /* Give it a predictable top + bottom padding so it sits right on phones */
+  .takeover-viewport > #checklist .checklist__inner{
+    padding-top: 88px; /* header offset */
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* =========================================================
+   iOS TAKEOVER HEIGHT OVERRIDE
+   - Forces takeover viewport/layers to match JS viewport height
+   - Fixes the black bar at bottom on mobile
+========================================================= */
+#takeoverScene .takeover-viewport{
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+#takeoverScene .takeover-viewport > #checklist,
+#takeoverScene .takeover-viewport > #maintenance{
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Ensure maintenance section itself also matches takeover height */
+#takeoverScene #maintenance.service-panel{
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* =========================================================
+   MOBILE: Align stacked service panel content consistently
+   - Applies to ALL stacked service panels (Maintenance, Design, etc.)
+   - Desktop behavior remains unchanged
+========================================================= */
+@media (max-width: 980px) {
+
+  /* Center content vertically for stacked panels on mobile */
+  #takeoverScene .takeover-viewport > [data-stack-panel].service-panel {
+    align-items: center; /* matches General Maintenance behavior */
+  }
+
+  /* Ensure inner spacing is consistent */
+  #takeoverScene
+    .takeover-viewport
+    > [data-stack-panel]
+    .service-panel__inner {
+
+    padding-top: clamp(18px, 4vw, 36px);
+    padding-bottom: calc(
+      clamp(18px, 4vw, 36px) + env(safe-area-inset-bottom, 0px)
+    );
+  }
+}
+
+
+/* =========================================================
+   LOCATIONS SERVICED (Post-takeover section)
+   - Premium dark styling consistent with hero/checklist
+   - Glass list pills and a clean image slot
+   - Responsive layout: stacked on mobile, 2-column on desktop
+========================================================= */
+
+.locations {
+  position: relative;
+  overflow: hidden;
+
+  /* Dark premium base + subtle brand glows */
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.10), transparent 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.94));
+
+  color: var(--white);
+}
+
+.locations__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+
+  padding: clamp(44px, 6vw, 88px) 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 3vw, 36px);
+
+  align-items: center;
+}
+
+/* ---------------------------------------------------------
+   Desktop layout refinement
+   - Prevents “chopped” feeling by giving each column a
+     predictable minimum size and cleaner spacing.
+---------------------------------------------------------- */
+@media (min-width: 980px) {
+  .locations__inner {
+    grid-template-columns: minmax(520px, 1.05fr) minmax(420px, 0.95fr);
+    column-gap: clamp(26px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .locations__content {
+    padding-right: 6px; /* tiny breathing room so text never feels cramped */
+  }
+}
+
+@media (min-width: 980px) {
+  .locations__inner {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+.locations__content {
+  max-width: 62ch;
+}
+
+.locations__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(237, 237, 237, 0.76);
+  margin-bottom: 10px;
+}
+
+.locations__title {
+  font-size: clamp(2.0rem, 5.0vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.9px;
+  font-weight: 900;
+  color: rgba(237, 237, 237, 0.96);
+  margin-bottom: 12px;
+}
+
+.locations__lead {
+  font-size: clamp(1.02rem, 2.0vw, 1.12rem);
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.82);
+  margin-bottom: 18px;
+}
+
+.locations__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.locations__item {
+  padding: 10px 12px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  font-weight: 750;
+  color: rgba(237, 237, 237, 0.92);
+
+  /* Small shadow for depth without feeling boxy */
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+/* CTA matches your button language */
+.locations__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  color: rgba(237, 237, 237, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.locations__cta:hover {
+  transform: translateY(-2px);
+  border-color: rgba(143, 219, 162, 0.70);
+  color: var(--white);
+}
+
+.locations__cta:active {
+  transform: translateY(-1px);
+}
+
+.locations__media {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.35);
+
+  /* Mobile: nice card shape */
+  aspect-ratio: 4 / 3;
+}
+
+/* Desktop: let the media breathe (less “chop”, more premium) */
+@media (min-width: 980px) {
+  .locations__media {
+    aspect-ratio: 16 / 10; /* wider hero-like crop looks intentional */
+    min-height: 380px;     /* ensures it doesn’t look short/stubby */
+  }
+}
+
+.locations__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* prevents “cut off” focal points */
+  transform: scale(1.015); /* less aggressive crop */
+  filter: contrast(1.02) saturate(1.02);
+}
+
+/* Logo overlay in the image corner */
+.locations__logo {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+
+  width: clamp(88px, 18vw, 140px);
+  height: auto;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.35));
+}
+
+/* Mobile performance: drop blur to reduce iOS cost */
+@media (max-width: 980px) {
+  .locations__logo {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* =========================================================
+   FOOTER (Global)
+   - Minimal, premium, and fast
+   - Dark base + subtle glows (matches hero/checklist)
+   - Responsive: stacked on mobile, split on desktop
+========================================================= */
+
+.site-footer {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.08), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.08), transparent 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.96));
+
+  color: var(--white);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.site-footer__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+  padding: clamp(22px, 3vw, 34px) 0;
+}
+
+.site-footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.site-footer__brand {
+  text-decoration: none;
+  color: rgba(237, 237, 237, 0.95);
+  font-weight: 850;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.site-footer__actions {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer-btn {
+  text-decoration: none;
+  color: rgba(237, 237, 237, 0.92);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+  white-space: nowrap;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.footer-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(143, 219, 162, 0.70);
+  color: var(--white);
+}
+
+.footer-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Primary CTA styling (still not “boxy”) */
+.footer-btn--primary {
+  border-color: rgba(148, 214, 255, 0.55);
+}
+
+.footer-btn--primary:hover {
+  border-color: rgba(148, 214, 255, 0.85);
+}
+
+.site-footer__meta {
+  margin: 0;
+  color: rgba(237, 237, 237, 0.72);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.site-footer__bottom {
+  margin-top: 14px;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.site-footer__copyright,
+.site-footer__note {
+  color: rgba(237, 237, 237, 0.64);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Mobile: keep it clean and stacked */
+@media (max-width: 520px) {
+  .site-footer__actions {
+    width: 100%;
+  }
+
+  .footer-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
