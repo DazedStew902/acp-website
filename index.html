@@ -176,340 +176,319 @@
       </section>
 
       <!-- =========================================================
-  TAKEOVER SCENE: Checklist → Maintenance
-  - One sticky viewport (no stages)
-  - Two layers (checklist base, maintenance slides in)
+  TAKEOVER STACK (CSS-native)
+  - Native page scroll (no JS transform driver)
+  - Each panel is sticky full-viewport
+  - Panels naturally “stack” as you scroll
 ========================================================= -->
-      <div class="takeover-scene" id="takeoverScene">
-        <div class="takeover-viewport">
-          <!-- Base layer: Checklist -->
-          <section
-            id="checklist"
-            class="checklist"
-            aria-label="Company checklist"
-          >
-            <div class="checklist__inner">
-              <div class="checklist__left">
-                <img
-                  src="images/logo.png"
-                  alt="ACP Landscaping"
-                  class="checklist__logo"
-                  decoding="async"
-                  loading="lazy"
-                />
-
-                <h2 class="checklist__title">
-                  The <span class="checklist__title-accent">ACP</span> Standard
-                </h2>
-
-                <p class="checklist__subhead">
-                  Premium service, consistent execution, and a clean
-                  finish—every time.
-                </p>
-              </div>
-
-              <div class="checklist__right">
-                <ul
-                  class="checklist__list"
-                  aria-label="Accomplishments and values"
-                >
-                  <li
-                    class="checklist__item"
-                    data-text="100+ Clients Serviced"
-                  ></li>
-                  <li
-                    class="checklist__item"
-                    data-text="100% Satisfaction Rate"
-                  ></li>
-                  <li
-                    class="checklist__item"
-                    data-text="On Time &amp; Efficient"
-                  ></li>
-                  <li
-                    class="checklist__item"
-                    data-text="Personable, Customized Experience"
-                  ></li>
-                  <li
-                    class="checklist__item"
-                    data-text="10+ Years of Experience"
-                  ></li>
-                  <li
-                    class="checklist__item"
-                    data-text="Young and Motivated"
-                  ></li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <!-- Top layer: Maintenance (slides in) -->
-          <section
-            id="maintenance"
-            class="service-panel service-panel--maintenance"
-            aria-label="General Maintenance"
-            data-parallax="0.18"
-            data-stack-panel
-          >
-            <picture class="service-panel__media" aria-hidden="true">
-              <source
-                srcset="images/maintenance-desktop.jpg"
-                media="(min-width: 900px)"
-              />
+      <div
+        class="takeover-scene"
+        id="takeoverScene"
+        aria-label="Takeover stack"
+      >
+        <!-- Panel 1: Checklist (base) -->
+        <section
+          id="checklist"
+          class="stack-panel checklist"
+          aria-label="Company checklist"
+        >
+          <div class="checklist__inner">
+            <div class="checklist__left">
               <img
-                src="images/maintenance-mobile.jpg"
-                alt=""
-                class="service-panel__img"
-                loading="lazy"
+                src="images/logo.png"
+                alt="ACP Landscaping"
+                class="checklist__logo"
                 decoding="async"
-              />
-            </picture>
-
-            <div class="service-panel__overlay" aria-hidden="true"></div>
-
-            <div class="service-panel__inner">
-              <p class="service-panel__kicker">Services</p>
-
-              <h2 class="service-panel__title">General Maintenance</h2>
-
-              <p class="service-panel__desc">
-                Spring &amp; fall cleanups, mulching, weeding, trimming,
-                pressure washing, and ongoing upkeep—handled with precision and
-                care.
-              </p>
-
-              <a
-                class="service-panel__btn"
-                href="maintenance.html"
-                aria-label="Learn more about General Maintenance"
-              >
-                Learn More
-              </a>
-            </div>
-          </section>
-
-          <!-- Top layer: Design (slides in after Maintenance) -->
-          <section
-            id="design"
-            class="service-panel service-panel--design"
-            aria-label="Design"
-            data-parallax="0.18"
-            data-stack-panel
-          >
-            <picture class="service-panel__media" aria-hidden="true">
-              <source
-                srcset="images/design-desktop.jpg"
-                media="(min-width: 900px)"
-              />
-              <img
-                src="images/design-mobile.jpg"
-                alt=""
-                class="service-panel__img"
                 loading="lazy"
-                decoding="async"
               />
-            </picture>
 
-            <div class="service-panel__overlay" aria-hidden="true"></div>
+              <h2 class="checklist__title">
+                The <span class="checklist__title-accent">ACP</span> Standard
+              </h2>
 
-            <div class="service-panel__inner">
-              <p class="service-panel__kicker">Services</p>
-
-              <h2 class="service-panel__title">Design</h2>
-
-              <p class="service-panel__desc">
-                Landscape design, bed layouts, plant selection, and hardscape
-                planning—built around your space and your goals.
+              <p class="checklist__subhead">
+                Premium service, consistent execution, and a clean finish—every
+                time.
               </p>
-
-              <a
-                class="service-panel__btn"
-                href="design.html"
-                aria-label="Learn more about Design"
-              >
-                Learn More
-              </a>
             </div>
-          </section>
-          <!-- Top layer: Development (stacks after Design) -->
-          <section
-            id="development"
-            class="service-panel service-panel--development"
-            aria-label="Development"
-            data-parallax="0.18"
-            data-stack-panel
-          >
-            <!-- Responsive background image (mobile + desktop) -->
-            <picture class="service-panel__media" aria-hidden="true">
-              <source
-                srcset="images/development-desktop.jpg"
-                media="(min-width: 900px)"
-              />
-              <img
-                src="images/development-mobile.jpg"
-                alt=""
-                class="service-panel__img"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
 
-            <!-- Readability overlay -->
-            <div class="service-panel__overlay" aria-hidden="true"></div>
-
-            <!-- Content (matches Maintenance/Design format) -->
-            <div class="service-panel__inner">
-              <p class="service-panel__kicker">Services</p>
-
-              <h2 class="service-panel__title">Development</h2>
-
-              <p class="service-panel__desc">
-                Hardscapes, patios, walkways, grading, drainage solutions, and
-                outdoor builds—executed with craftsmanship and clean site
-                standards.
-              </p>
-
-              <a
-                class="service-panel__btn"
-                href="development.html"
-                aria-label="Learn more about Development"
+            <div class="checklist__right">
+              <ul
+                class="checklist__list"
+                aria-label="Accomplishments and values"
               >
-                Learn More
-              </a>
+                <li
+                  class="checklist__item"
+                  data-text="100+ Clients Serviced"
+                ></li>
+                <li
+                  class="checklist__item"
+                  data-text="100% Satisfaction Rate"
+                ></li>
+                <li
+                  class="checklist__item"
+                  data-text="On Time &amp; Efficient"
+                ></li>
+                <li
+                  class="checklist__item"
+                  data-text="Personable, Customized Experience"
+                ></li>
+                <li
+                  class="checklist__item"
+                  data-text="10+ Years of Experience"
+                ></li>
+                <li
+                  class="checklist__item"
+                  data-text="Young and Motivated"
+                ></li>
+              </ul>
             </div>
-          </section>
-          <!-- Top layer: Lawncare (stacks after Development) -->
-          <section
-            id="lawncare"
-            class="service-panel service-panel--lawncare"
-            aria-label="Lawncare"
-            data-parallax="0.18"
-            data-stack-panel
-          >
-            <picture class="service-panel__media" aria-hidden="true">
-              <source
-                srcset="images/lawncare-desktop.jpg"
-                media="(min-width: 900px)"
-              />
-              <img
-                src="images/lawncare-mobile.jpg"
-                alt=""
-                class="service-panel__img"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+          </div>
+        </section>
 
-            <div class="service-panel__overlay" aria-hidden="true"></div>
+        <!-- Panel 2: Maintenance -->
+        <section
+          id="maintenance"
+          class="stack-panel service-panel service-panel--maintenance"
+          aria-label="General Maintenance"
+        >
+          <picture class="service-panel__media" aria-hidden="true">
+            <source
+              srcset="images/maintenance-desktop.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              src="images/maintenance-mobile.jpg"
+              alt=""
+              class="service-panel__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
 
-            <div class="service-panel__inner">
-              <p class="service-panel__kicker">Services</p>
+          <div class="service-panel__overlay" aria-hidden="true"></div>
 
-              <h2 class="service-panel__title">Lawncare</h2>
+          <div class="service-panel__inner">
+            <p class="service-panel__kicker">Services</p>
+            <h2 class="service-panel__title">General Maintenance</h2>
+            <p class="service-panel__desc">
+              Spring &amp; fall cleanups, mulching, weeding, trimming, pressure
+              washing, and ongoing upkeep—handled with precision and care.
+            </p>
 
-              <p class="service-panel__desc">
-                Mowing, edging, seasonal fertilization, aeration, overseeding,
-                and clean striping—kept consistent so your property always looks
-                sharp.
-              </p>
+            <a
+              class="service-panel__btn"
+              href="maintenance.html"
+              aria-label="Learn more about General Maintenance"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
 
-              <a
-                class="service-panel__btn"
-                href="lawncare.html"
-                aria-label="Learn more about Lawncare"
-              >
-                Learn More
-              </a>
-            </div>
-          </section>
-          <!-- Top layer: Commercial Portfolio (stacks after Lawncare) -->
-          <section
-            id="commercial"
-            class="service-panel service-panel--commercial"
-            aria-label="Commercial Portfolio"
-            data-parallax="0.18"
-            data-stack-panel
-          >
-            <picture class="service-panel__media" aria-hidden="true">
-              <source
-                srcset="images/commercial-desktop.jpg"
-                media="(min-width: 900px)"
-              />
-              <img
-                src="images/commercial-mobile.jpg"
-                alt=""
-                class="service-panel__img"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+        <!-- Panel 3: Design -->
+        <section
+          id="design"
+          class="stack-panel service-panel service-panel--design"
+          aria-label="Design"
+        >
+          <picture class="service-panel__media" aria-hidden="true">
+            <source
+              srcset="images/design-desktop.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              src="images/design-mobile.jpg"
+              alt=""
+              class="service-panel__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
 
-            <div class="service-panel__overlay" aria-hidden="true"></div>
+          <div class="service-panel__overlay" aria-hidden="true"></div>
 
-            <div class="service-panel__inner">
-              <p class="service-panel__kicker">Portfolio</p>
+          <div class="service-panel__inner">
+            <p class="service-panel__kicker">Services</p>
+            <h2 class="service-panel__title">Design</h2>
+            <p class="service-panel__desc">
+              Landscape design, bed layouts, plant selection, and hardscape
+              planning—built around your space and your goals.
+            </p>
 
-              <h2 class="service-panel__title">Commercial</h2>
+            <a
+              class="service-panel__btn"
+              href="design.html"
+              aria-label="Learn more about Design"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
 
-              <p class="service-panel__desc">
-                Reliable maintenance, clean lines, and professional curb appeal
-                for offices, storefronts, and managed properties—built to
-                impress year-round.
-              </p>
+        <!-- Panel 4: Development -->
+        <section
+          id="development"
+          class="stack-panel service-panel service-panel--development"
+          aria-label="Development"
+        >
+          <picture class="service-panel__media" aria-hidden="true">
+            <source
+              srcset="images/development-desktop.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              src="images/development-mobile.jpg"
+              alt=""
+              class="service-panel__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
 
-              <a
-                class="service-panel__btn"
-                href="commercial.html"
-                aria-label="View Commercial Portfolio"
-              >
-                Learn More
-              </a>
-            </div>
-          </section>
-          <!-- Top layer: Residential Portfolio (stacks after Commercial) -->
-          <section
-            id="residential"
-            class="service-panel service-panel--residential"
-            aria-label="Residential Portfolio"
-            data-parallax="0.18"
-            data-stack-panel
-          >
-            <picture class="service-panel__media" aria-hidden="true">
-              <source
-                srcset="images/residential-desktop.jpg"
-                media="(min-width: 900px)"
-              />
-              <img
-                src="images/residential-mobile.jpg"
-                alt=""
-                class="service-panel__img"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+          <div class="service-panel__overlay" aria-hidden="true"></div>
 
-            <div class="service-panel__overlay" aria-hidden="true"></div>
+          <div class="service-panel__inner">
+            <p class="service-panel__kicker">Services</p>
+            <h2 class="service-panel__title">Development</h2>
+            <p class="service-panel__desc">
+              Hardscapes, patios, walkways, grading, drainage solutions, and
+              outdoor builds—executed with craftsmanship and clean site
+              standards.
+            </p>
 
-            <div class="service-panel__inner">
-              <p class="service-panel__kicker">Portfolio</p>
+            <a
+              class="service-panel__btn"
+              href="development.html"
+              aria-label="Learn more about Development"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
 
-              <h2 class="service-panel__title">Residential</h2>
+        <!-- Panel 5: Lawncare -->
+        <section
+          id="lawncare"
+          class="stack-panel service-panel service-panel--lawncare"
+          aria-label="Lawncare"
+        >
+          <picture class="service-panel__media" aria-hidden="true">
+            <source
+              srcset="images/lawncare-desktop.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              src="images/lawncare-mobile.jpg"
+              alt=""
+              class="service-panel__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
 
-              <p class="service-panel__desc">
-                Outdoor spaces tailored to your home—clean installs, thoughtful
-                plant selection, and detail-focused maintenance that stays
-                looking premium.
-              </p>
+          <div class="service-panel__overlay" aria-hidden="true"></div>
 
-              <a
-                class="service-panel__btn"
-                href="residential.html"
-                aria-label="View Residential Portfolio"
-              >
-                Learn More
-              </a>
-            </div>
-          </section>
-        </div>
+          <div class="service-panel__inner">
+            <p class="service-panel__kicker">Services</p>
+            <h2 class="service-panel__title">Lawncare</h2>
+            <p class="service-panel__desc">
+              Mowing, edging, seasonal fertilization, aeration, overseeding, and
+              clean striping—kept consistent so your property always looks
+              sharp.
+            </p>
+
+            <a
+              class="service-panel__btn"
+              href="lawncare.html"
+              aria-label="Learn more about Lawncare"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
+
+        <!-- Panel 6: Commercial -->
+        <section
+          id="commercial"
+          class="stack-panel service-panel service-panel--commercial"
+          aria-label="Commercial Portfolio"
+        >
+          <picture class="service-panel__media" aria-hidden="true">
+            <source
+              srcset="images/commercial-desktop.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              src="images/commercial-mobile.jpg"
+              alt=""
+              class="service-panel__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+
+          <div class="service-panel__overlay" aria-hidden="true"></div>
+
+          <div class="service-panel__inner">
+            <p class="service-panel__kicker">Portfolio</p>
+            <h2 class="service-panel__title">Commercial</h2>
+            <p class="service-panel__desc">
+              Reliable maintenance, clean lines, and professional curb appeal
+              for offices, storefronts, and managed properties—built to impress
+              year-round.
+            </p>
+
+            <a
+              class="service-panel__btn"
+              href="commercial.html"
+              aria-label="View Commercial Portfolio"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
+
+        <!-- Panel 7: Residential -->
+        <section
+          id="residential"
+          class="stack-panel service-panel service-panel--residential"
+          aria-label="Residential Portfolio"
+        >
+          <picture class="service-panel__media" aria-hidden="true">
+            <source
+              srcset="images/residential-desktop.jpg"
+              media="(min-width: 900px)"
+            />
+            <img
+              src="images/residential-mobile.jpg"
+              alt=""
+              class="service-panel__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+
+          <div class="service-panel__overlay" aria-hidden="true"></div>
+
+          <div class="service-panel__inner">
+            <p class="service-panel__kicker">Portfolio</p>
+            <h2 class="service-panel__title">Residential</h2>
+            <p class="service-panel__desc">
+              Outdoor spaces tailored to your home—clean installs, thoughtful
+              plant selection, and detail-focused maintenance that stays looking
+              premium.
+            </p>
+
+            <a
+              class="service-panel__btn"
+              href="residential.html"
+              aria-label="View Residential Portfolio"
+            >
+              Learn More
+            </a>
+          </div>
+        </section>
       </div>
       <!-- =========================================================
            SECTION: Locations Serviced
@@ -517,13 +496,8 @@
            - Premium dark style to match hero/checklist
            - Includes space for a brand image (logo + optional photo)
       ========================================================== -->
-      <section
-        id="locations"
-        class="locations"
-        aria-label="Locations Serviced"
-        data-reveal
-      >
-        <div class="locations__inner">
+      <section id="locations" class="locations" aria-label="Locations Serviced">
+        <div class="locations__inner" data-reveal>
           <!-- Left: Copy -->
           <div class="locations__content">
             <p class="locations__kicker">Service Area</p>

@@ -1104,234 +1104,198 @@ transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
 }
 
 /* =========================================================
-   TAKEOVER SCENE (Scalable Stacking)
-   - Scene height scales with number of [data-stack-panel] layers
-   - One sticky viewport
-   - Checklist is the base layer
-   - Each stack panel starts off-screen and slides up via JS transform
+   TAKEOVER STACK (CSS-native sticky stack)
+   - No JS scroll driver
+   - Each panel is sticky full-viewport
+   - Next panel naturally rises from bottom as you scroll
+   - GPU transforms are NOT used for the stack (browser-native)
 ========================================================= */
+
 .takeover-scene {
   position: relative;
-
-  /* JS sets --stackCount (number of panels). Default 1. */
-  height: calc((var(--stackCount, 1) + 1) * (var(--vh, 1vh) * 100));
-
-  overflow-anchor: none;
-  background: #000; /* prevent any white bleed */
+  background: #000; /* prevents white bleed between layers */
 }
 
-.takeover-viewport {
+/* Each child section becomes a sticky "slide" */
+.takeover-scene > .stack-panel {
   position: sticky;
   top: 0;
+  height: 100svh;
+  overflow: hidden;
 
-  /* Use the JS-calibrated viewport height for iOS correctness */
-  height: calc(var(--vh, 1vh) * 100);
-
-  overflow: hidden; /* crucial: no layout bleed / gaps */
+  /* Fix header overlap when jumping via nav */
+  scroll-margin-top: 88px;
 }
 
-/* Base layer (Checklist) */
-.takeover-viewport > #checklist {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  z-index: 1;
-}
-
-/* Stack layers (Maintenance, Design, Development, etc.) */
-.takeover-viewport > [data-stack-panel] {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-
-  /* Start off-screen; JS will drive translateY(100% → 0%) */
-  transform: translateY(100%);
-  will-change: transform;
-}
+/* Layering: later panels sit above earlier panels */
+.takeover-scene > .stack-panel:nth-child(1) { z-index: 1; }
+.takeover-scene > .stack-panel:nth-child(2) { z-index: 2; }
+.takeover-scene > .stack-panel:nth-child(3) { z-index: 3; }
+.takeover-scene > .stack-panel:nth-child(4) { z-index: 4; }
+.takeover-scene > .stack-panel:nth-child(5) { z-index: 5; }
+.takeover-scene > .stack-panel:nth-child(6) { z-index: 6; }
+.takeover-scene > .stack-panel:nth-child(7) { z-index: 7; }
 
 /* =========================================================
-   TAKEOVER-SCOPED OVERRIDES (so your existing section CSS behaves fullscreen)
-   - Your .checklist has huge vertical padding; inside a fullscreen layer
-     that padding creates overflow and weird "gaps".
-   - Move that spacing to the inner container instead.
+   TAKEOVER-SCOPED OVERRIDES
+   - Your .checklist has large vertical padding in normal flow.
+     Inside a full-viewport sticky panel, that can cause overflow.
+   - This override affects ONLY the takeover checklist panel.
 ========================================================= */
-.takeover-viewport > #checklist{
+#takeoverScene > #checklist.checklist {
   height: 100svh;
-  padding: 0;                 /* override the big section padding */
+  padding: 0;                 /* override normal section padding */
   display: grid;
   align-items: center;
-
-  /* Keep your existing background */
-  overflow: hidden;
 }
 
-.takeover-viewport > #checklist .checklist__inner{
-  padding: 88px 0;            /* account for fixed header + breathing room */
+#takeoverScene > #checklist .checklist__inner {
+  padding: 88px 0 calc(18px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Maintenance is already fullscreen, but keep it strict */
-.takeover-viewport > #maintenance{
-  height: 100svh;
+/* Mobile: align checklist content toward top for better fit */
+@media (max-width: 980px) {
+  #takeoverScene > #checklist.checklist {
+    align-items: start;
+  }
+
+  #takeoverScene > #checklist .checklist__inner {
+    padding-top: 88px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
 }
+
 /* =========================================================
-   MOBILE PERFORMANCE PATCH
+   TAKEOVER: Mobile consistent vertical alignment for service panels
+   - Keeps CTAs visible and avoids bottom clipping
+   - Applies ONLY inside the takeover stack
+========================================================= */
+@media (max-width: 980px) {
+  #takeoverScene > .service-panel {
+    align-items: center; /* override service-panel default end alignment */
+  }
+
+  #takeoverScene > .service-panel .service-panel__inner {
+    padding-top: clamp(18px, 4vw, 36px);
+    padding-bottom: calc(clamp(18px, 4vw, 36px) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* =========================================================
+   MOBILE PERFORMANCE PATCH (Safe)
    - iOS Safari struggles with backdrop-filter on many elements
-   - keep the look, but drop the expensive blur on small screens
 ========================================================= */
 @media (max-width: 980px) {
   .checklist__item {
-    /* keep glass look but remove heavy blur */
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-
-    /* slightly increase opacity so it still looks premium */
     background: rgba(255, 255, 255, 0.10);
     border-color: rgba(255, 255, 255, 0.18);
   }
 }
 
 /* =========================================================
-   TAKEOVER PERFORMANCE HELPERS (Safe)
-   - DO NOT set transform here (JS owns it)
-   - contain reduces paint scope
+   TAKEOVER "SCROLL WEIGHT" (CSS-only, takeover-scoped)
+   - Does NOT change scroll distance
+   - Does NOT delay the next panel starting to rise
+   - Adds perceived "mass" via scroll-driven easing:
+     * background image lags slightly then settles
+     * content eases in with a heavier curve
+   - Progressive enhancement: only runs where supported
 ========================================================= */
-.takeover-viewport > [data-stack-panel],
-.takeover-viewport > #checklist {
-  contain: layout paint style;
-  backface-visibility: hidden;
-  will-change: transform;
-}
 
-.service-panel__img {
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0) scale(1.06);
-}
+@supports (animation-timeline: view()) {
 
-/* =========================================================
-   TAKEOVER: Mobile content fit + safe area
-   - Prevents CTA from being pushed below the viewport
-========================================================= */
-#takeoverScene #maintenance .service-panel__inner{
-  /* your default bottom padding is huge; shrink it in takeover */
-  padding-bottom: clamp(22px, 5vw, 52px);
-
-  /* iPhone safe-area so the button never sits under the home indicator */
-  padding-bottom: calc(clamp(22px, 5vw, 52px) + env(safe-area-inset-bottom, 0px));
-}
-
-/* Optional: if the text still feels low on very short screens */
-@media (max-width: 520px) {
-  #takeoverScene #maintenance .service-panel__inner{
-    padding-top: clamp(16px, 4vw, 36px);
-  }
-}
-
-/* =========================================================
-   TAKEOVER: Mobile fix for missing CTA + dark bottom gap
-   Root cause:
-   - .service-panel { align-items: end; } pushes content down
-   - takeover viewport uses overflow:hidden, so CTA gets clipped
-========================================================= */
-@media (max-width: 980px) {
-
-  /* 1) Don't bottom-align the maintenance content during takeover */
-  #takeoverScene .takeover-viewport > #maintenance.service-panel{
-    align-items: center;                 /* was: end */
+  /* ---------------------------
+     Tuning knobs (feel free)
+     - Lower values = lighter
+     - Higher values = heavier
+  ---------------------------- */
+  #takeoverScene {
+--weight-img-lag: 20px;
+--weight-inner-lag: 26px;
+--weight-ease: cubic-bezier(0.22, 1.22, 0.36, 1);
   }
 
-  /* 2) Make the inner block "fit" the viewport and keep CTA visible */
-  #takeoverScene #maintenance .service-panel__inner{
-    width: min(1100px, 92vw);
-    margin: 0 auto;
-
-    /* cap the total height so it can't drop below the fold */
-    max-height: calc(100svh - 88px - env(safe-area-inset-bottom, 0px));
-    overflow: visible;
-
-    /* tighter, predictable padding */
-    padding-top: clamp(18px, 4vw, 36px);
-    padding-bottom: calc(clamp(18px, 4vw, 36px) + env(safe-area-inset-bottom, 0px));
+  /* Create a per-panel view timeline */
+  #takeoverScene > .stack-panel {
+    view-timeline-name: --panel;
+    view-timeline-axis: block;
   }
 
-  /* 3) If text still runs long, allow a tiny bit smaller spacing */
-  #takeoverScene #maintenance .service-panel__desc{
-    margin-bottom: 12px;
-  }
-}
-
-/* =========================================================
-   FIX: Remove big empty space at bottom of checklist (mobile)
-   Cause: takeover checklist layer is vertically centered
-========================================================= */
-@media (max-width: 980px) {
-  .takeover-viewport > #checklist{
-    align-items: start; /* was: center */
-  }
-
-  /* Give it a predictable top + bottom padding so it sits right on phones */
-  .takeover-viewport > #checklist .checklist__inner{
-    padding-top: 88px; /* header offset */
-    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-  }
-}
-
-/* =========================================================
-   iOS TAKEOVER HEIGHT OVERRIDE
-   - Forces takeover viewport/layers to match JS viewport height
-   - Fixes the black bar at bottom on mobile
-========================================================= */
-#takeoverScene .takeover-viewport{
-  height: calc(var(--vh, 1vh) * 100);
-}
-
-#takeoverScene .takeover-viewport > #checklist,
-#takeoverScene .takeover-viewport > #maintenance{
-  height: calc(var(--vh, 1vh) * 100);
-}
-
-/* Ensure maintenance section itself also matches takeover height */
-#takeoverScene #maintenance.service-panel{
-  min-height: calc(var(--vh, 1vh) * 100);
-}
-
-/* =========================================================
-   MOBILE: Align stacked service panel content consistently
-   - Applies to ALL stacked service panels (Maintenance, Design, etc.)
-   - Desktop behavior remains unchanged
-========================================================= */
-@media (max-width: 980px) {
-
-  /* Center content vertically for stacked panels on mobile */
-  #takeoverScene .takeover-viewport > [data-stack-panel].service-panel {
-    align-items: center; /* matches General Maintenance behavior */
+  /* ---------------------------------------------
+     1) Background image "drag"
+     - Subtle lag downward, then settles to 0
+     - Gives weight while panel rises normally
+  ---------------------------------------------- */
+  #takeoverScene > .service-panel .service-panel__img {
+    animation-name: takeoverImgWeight;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 55%;
+    animation-timing-function: var(--weight-ease);
+    animation-fill-mode: both;
+    will-change: transform;
   }
 
-  /* Ensure inner spacing is consistent */
-  #takeoverScene
-    .takeover-viewport
-    > [data-stack-panel]
-    .service-panel__inner {
+  @keyframes takeoverImgWeight {
+    from { transform: translateY(var(--weight-img-lag)) scale(1.06); }
+    to   { transform: translateY(0px) scale(1.06); }
+  }
 
-    padding-top: clamp(18px, 4vw, 36px);
-    padding-bottom: calc(
-      clamp(18px, 4vw, 36px) + env(safe-area-inset-bottom, 0px)
-    );
+  /* ---------------------------------------------
+     2) Content "mass"
+     - Text block eases upward into its final spot
+     - Keeps the panel motion immediate, but adds "heft"
+  ---------------------------------------------- */
+  #takeoverScene > .service-panel .service-panel__inner {
+    animation-name: takeoverInnerWeight;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 60%;
+    animation-timing-function: var(--weight-ease);
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes takeoverInnerWeight {
+    from { transform: translateY(var(--weight-inner-lag)); opacity: 0.92; }
+    to   { transform: translateY(0px); opacity: 1; }
+  }
+
+  /* ---------------------------------------------
+     3) Checklist weight (optional but nice)
+  ---------------------------------------------- */
+  #takeoverScene > #checklist .checklist__inner {
+    animation-name: takeoverChecklistWeight;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 55%;
+    animation-timing-function: var(--weight-ease);
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes takeoverChecklistWeight {
+    from { transform: translateY(16px); opacity: 0.96; }
+    to   { transform: translateY(0px); opacity: 1; }
+  }
+
+  /* Reduced motion: disable "weight" animations */
+  @media (prefers-reduced-motion: reduce) {
+    #takeoverScene > .service-panel .service-panel__img,
+    #takeoverScene > .service-panel .service-panel__inner,
+    #takeoverScene > #checklist .checklist__inner {
+      animation: none !important;
+    }
   }
 }
-
 
 /* =========================================================
    LOCATIONS SERVICED (Post-takeover section)
-   - Premium dark styling consistent with hero/checklist
-   - Glass list pills and a clean image slot
-   - Responsive layout: stacked on mobile, 2-column on desktop
+   - Section keeps its background always (reveal animates inner only)
 ========================================================= */
-
 .locations {
   position: relative;
   overflow: hidden;
 
-  /* Dark premium base + subtle brand glows */
   background:
     radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
     radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.10), transparent 62%),
@@ -1340,44 +1304,32 @@ transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
   color: var(--white);
 }
 
+/* =========================================================
+   LOCATIONS: Layout system (Designed grid)
+   - Mobile: stacked with intentional spacing
+   - Desktop: 12-col grid with consistent rhythm
+========================================================= */
 .locations__inner {
   width: min(1200px, 92vw);
   margin: 0 auto;
 
-  padding: clamp(44px, 6vw, 88px) 0;
+  padding: clamp(28px, 5vw, 72px) 0;
 
   display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(18px, 3vw, 36px);
-
-  align-items: center;
+  gap: clamp(16px, 3vw, 28px);
+  align-items: start;
 }
 
-/* ---------------------------------------------------------
-   Desktop layout refinement
-   - Prevents “chopped” feeling by giving each column a
-     predictable minimum size and cleaner spacing.
----------------------------------------------------------- */
+/* Desktop: true grid (content left, media right) */
 @media (min-width: 980px) {
   .locations__inner {
-    grid-template-columns: minmax(520px, 1.05fr) minmax(420px, 0.95fr);
-    column-gap: clamp(26px, 4vw, 56px);
-    align-items: center;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: clamp(22px, 3.6vw, 56px);
+    row-gap: clamp(18px, 2vw, 26px);
   }
 
-  .locations__content {
-    padding-right: 6px; /* tiny breathing room so text never feels cramped */
-  }
-}
-
-@media (min-width: 980px) {
-  .locations__inner {
-    grid-template-columns: 1.05fr 0.95fr;
-  }
-}
-
-.locations__content {
-  max-width: 62ch;
+  .locations__content { grid-column: 1 / span 6; }
+  .locations__media   { grid-column: 7 / span 6; }
 }
 
 .locations__kicker {
@@ -1480,11 +1432,22 @@ transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
   aspect-ratio: 4 / 3;
 }
 
-/* Desktop: let the media breathe (less “chop”, more premium) */
+/* =========================================================
+   LOCATIONS: Desktop media sizing (more intentional)
+   - Prevents the map from feeling oversized / "raw"
+   - Keeps the card premium and proportional to the text column
+========================================================= */
 @media (min-width: 980px) {
   .locations__media {
-    aspect-ratio: 16 / 10; /* wider hero-like crop looks intentional */
-    min-height: 380px;     /* ensures it doesn’t look short/stubby */
+    /* Wide but not gigantic */
+    aspect-ratio: 16 / 11;
+
+    /* Hard cap so it doesn't overwhelm the section */
+    height: clamp(320px, 34vw, 460px);
+    min-height: unset; /* override old min-height rule */
+
+    /* Smooth visual polish */
+    border-radius: 22px;
   }
 }
 
@@ -1495,6 +1458,29 @@ transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
   object-position: center; /* prevents “cut off” focal points */
   transform: scale(1.015); /* less aggressive crop */
   filter: contrast(1.02) saturate(1.02);
+}
+
+/* Subtle overlay to make the map feel branded + less "raw" */
+.locations__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* Slight dark gradient + tiny color wash to match brand */
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.38), rgba(0,0,0,0.10), rgba(0,0,0,0.00)),
+    radial-gradient(900px 520px at 18% 22%, rgba(148,214,255,0.10), transparent 60%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143,219,162,0.08), transparent 60%);
+}
+
+@media (min-width: 980px) {
+  .locations__logo {
+    left: 18px;
+    bottom: 18px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.48);
+  }
 }
 
 /* Logo overlay in the image corner */
