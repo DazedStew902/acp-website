@@ -1,0 +1,434 @@
+/* =====================================================================
+   services.css — ACP Landscaping
+   Purpose:
+   - Layout + styling for service pages
+   - Used by maintenance.html and future service pages
+
+   Sections:
+   1) Service Hero
+   2) Service Overview
+   3) Service Cards Grid
+   4) Service CTA
+===================================================================== */
+
+
+/* =========================================================
+   1) SERVICE HERO
+========================================================= */
+
+.service-hero {
+  position: relative;
+  min-height: 75svh;
+  padding-top: 88px;
+
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+
+  color: var(--white);
+}
+
+.service-hero--maintenance {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.72)),
+    url("../images/maintenance-desktop.jpg") center / cover no-repeat;
+}
+
+.service-hero__inner {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+
+  padding:
+    clamp(32px, 6vw, 70px)
+    0
+    clamp(48px, 7vw, 110px);
+}
+
+.service-hero__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(237,237,237,0.76);
+
+  margin-bottom: 10px;
+}
+
+.service-hero__title {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  font-weight: 900;
+
+  margin-bottom: 14px;
+}
+
+.service-hero__desc {
+  max-width: 60ch;
+
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 600;
+
+  color: rgba(237,237,237,0.84);
+
+  margin-bottom: 20px;
+}
+
+.service-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  text-decoration: none;
+  color: var(--white);
+
+  border: 1px solid rgba(255,255,255,0.55);
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+
+  transition:
+    transform 220ms cubic-bezier(0.22,1,0.36,1),
+    border-color 220ms ease;
+}
+
+.service-hero__cta:hover {
+  transform: translateY(-2px);
+  border-color: var(--dark-green);
+}
+
+
+/* =========================================================
+   2) SERVICE OVERVIEW
+========================================================= */
+
+.service-overview {
+  padding: clamp(60px, 7vw, 110px) 0;
+}
+
+.service-overview__inner {
+  width: min(900px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+/* =========================================================
+   3) SHARED TEXT STYLES
+========================================================= */
+
+.section-kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--mint-green);
+
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: -0.6px;
+
+  margin-bottom: 16px;
+}
+
+.section-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(38,38,38,0.82);
+
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   4) SERVICE CARD GRID
+========================================================= */
+
+.service-list {
+  padding: clamp(60px, 7vw, 110px) 0;
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148,214,255,0.08), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143,219,162,0.08), transparent 62%);
+}
+
+.service-list__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.service-cards {
+  margin-top: 40px;
+
+  display: grid;
+  gap: 22px;
+
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.service-card {
+  padding: 24px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(0,0,0,0.08);
+
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+
+  text-align: left;
+}
+
+.service-card h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+
+  margin-bottom: 8px;
+}
+
+.service-card p {
+  font-weight: 600;
+  color: rgba(38,38,38,0.78);
+}
+
+
+/* =========================================================
+   5) SERVICE CTA
+========================================================= */
+
+.service-cta {
+  padding: clamp(60px, 7vw, 110px) 0;
+
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.90), rgba(0,0,0,0.94));
+
+  color: var(--white);
+}
+
+.service-cta__inner {
+  width: min(900px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.service-cta__inner h2 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 24px;
+}
+
+.service-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 20px;
+  border-radius: 12px;
+
+  text-decoration: none;
+  color: var(--white);
+
+  border: 1px solid rgba(255,255,255,0.55);
+
+  font-weight: 800;
+
+  transition:
+    transform 220ms cubic-bezier(0.22,1,0.36,1),
+    border-color 220ms ease;
+}
+
+.service-cta__btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--mint-green);
+}
+
+/* =====================================================================
+   Design Page Additions
+   Purpose:
+   - Extends service page styling for design.html
+   - Adds design hero variation + reusable process section
+===================================================================== */
+
+
+/* =========================================================
+   6) DESIGN HERO VARIANT
+========================================================= */
+
+.service-hero--design {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.72)),
+    url("../images/design-desktop.jpg") center / cover no-repeat;
+}
+
+
+/* =========================================================
+   7) SERVICE PROCESS
+========================================================= */
+
+.service-process {
+  padding: clamp(60px, 7vw, 110px) 0;
+}
+
+.service-process__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.service-steps {
+  margin-top: 40px;
+
+  display: grid;
+  gap: 22px;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.service-step {
+  padding: 24px;
+  border-radius: 16px;
+
+  text-align: left;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+}
+
+.service-step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+  margin-bottom: 14px;
+
+  border-radius: 999px;
+
+  background: rgba(64, 125, 75, 0.12);
+  border: 1px solid rgba(64, 125, 75, 0.18);
+
+  color: var(--mint-green);
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.4px;
+}
+
+.service-step h3 {
+  font-size: 1.08rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--black);
+}
+
+.service-step p {
+  font-weight: 600;
+  color: rgba(38, 38, 38, 0.78);
+}
+
+/* =====================================================================
+   Development Page Additions
+   Purpose:
+   - Extends service page styling for development.html
+   - Adds development hero variation + reusable feature section
+===================================================================== */
+
+
+/* =========================================================
+   8) DEVELOPMENT HERO VARIANT
+========================================================= */
+
+.service-hero--development {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.72)),
+    url("../images/development-desktop.jpg") center / cover no-repeat;
+}
+
+
+/* =========================================================
+   9) SERVICE FEATURE SECTION
+========================================================= */
+
+.service-feature {
+  padding: clamp(60px, 7vw, 110px) 0;
+}
+
+.service-feature__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .service-feature__inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 34px;
+  }
+}
+
+.service-feature__content {
+  text-align: left;
+}
+
+.service-feature__text {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.service-feature__points {
+  display: grid;
+  gap: 18px;
+}
+
+.feature-point {
+  padding: 22px 22px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+}
+
+.feature-point h3 {
+  font-size: 1.08rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--black);
+}
+
+.feature-point p {
+  font-weight: 600;
+  color: rgba(38, 38, 38, 0.78);
+}
+
+/* =====================================================================
+   Lawncare Page Additions
+   Purpose:
+   - Extends service page styling for lawncare.html
+   - Adds lawncare hero variation
+===================================================================== */
+
+
+/* =========================================================
+   10) LAWNCARE HERO VARIANT
+========================================================= */
+
+.service-hero--lawncare {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.72)),
+    url("../images/lawncare-desktop.jpg") center / cover no-repeat;
+}

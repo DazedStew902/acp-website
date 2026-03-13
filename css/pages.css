@@ -1,0 +1,1153 @@
+/* =====================================================================
+   pages.css — ACP Landscaping
+   Purpose:
+   - Page-specific styling (homepage + subpages)
+   - Keeps components.css clean and reusable
+   Contents (Homepage):
+   1) Intro Overlay Greeting
+   2) Hero
+   3) Checklist panel (within takeover)
+   4) Service panels (within takeover)
+   5) Takeover sticky stack + seam continuity + scroll weight
+   6) Locations section (post-takeover)
+===================================================================== */
+
+/* =========================================================
+   1) INTRO OVERLAY GREETING
+========================================================= */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  height: 100svh; /* exactly one screen on mobile */
+  width: 100%;
+  z-index: 9999;
+  will-change: transform, opacity;
+
+  /* scroll-dismiss animation target */
+  transform: translateY(var(--introY, 0px));
+  opacity: var(--introOpacity, 1);
+  transition: opacity 160ms linear;
+
+  overflow: hidden;
+  background: #0f0f0f; /* fallback if no bg image */
+}
+
+.intro-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.intro-overlay__tint {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 500px at 20% 20%, rgba(148,214,255,0.14), transparent 55%),
+    radial-gradient(900px 600px at 80% 70%, rgba(143,219,162,0.12), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+}
+
+.intro-overlay__content {
+  position: relative;
+  height: 100%;
+  width: min(720px, 92vw);
+  margin: 0 auto;
+  padding: clamp(18px, 4vw, 36px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+
+  color: rgba(237, 237, 237, 0.92);
+}
+
+.intro-overlay__logo {
+  width: clamp(120px, 28vw, 180px);
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.intro-overlay__logo-text {
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: rgba(237, 237, 237, 0.85);
+}
+
+.intro-overlay__headline {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: -0.6px;
+  line-height: 1.08;
+  color: rgba(237, 237, 237, 0.96);
+}
+
+.intro-overlay__message {
+  font-size: clamp(1.05rem, 2.3vw, 1.2rem);
+  max-width: 54ch;
+  color: rgba(237, 237, 237, 0.86);
+}
+
+.accent {
+  color: var(--dark-green);
+  font-weight: 650;
+}
+
+.intro-overlay__promo {
+  margin-top: 4px;
+  color: rgba(148, 214, 255, 0.92);
+  font-size: 0.95rem;
+}
+
+.intro-overlay__hint {
+  margin-top: 10px;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  color: rgba(237, 237, 237, 0.72);
+  font-size: 0.95rem;
+}
+
+.chev {
+  display: inline-block;
+  transform: translateY(0);
+  animation: nudge 1.2s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* Reduced motion: disable overlay hint nudge */
+@media (prefers-reduced-motion: reduce) {
+  .chev { animation: none; }
+}
+
+/* Mobile lighten: reduces paint cost */
+@media (max-width: 520px) {
+  .intro-overlay__bg {
+    transform: none;
+  }
+
+  .intro-overlay__tint {
+    background:
+      radial-gradient(700px 420px at 20% 20%, rgba(148,214,255,0.10), transparent 60%),
+      radial-gradient(750px 520px at 80% 75%, rgba(143,219,162,0.09), transparent 62%),
+      linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.70));
+  }
+
+  .intro-overlay__content {
+    width: min(640px, 92vw);
+    gap: 10px;
+  }
+
+  .intro-overlay__headline {
+    font-size: clamp(1.55rem, 6.2vw, 2.2rem);
+  }
+}
+
+/* =========================================================
+   2) HERO
+========================================================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+
+  /* Keeps hero content from hiding behind fixed header */
+  padding-top: 88px;
+
+  display: grid;
+  align-items: end;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.16), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.12), transparent 62%),
+    linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.58), transparent 72%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+
+  padding: clamp(22px, 5vw, 72px) 0 clamp(28px, 6vw, 88px);
+  color: var(--white);
+}
+
+.hero__logo {
+  width: clamp(140px, 28vw, 240px);
+  max-height: 84px;
+  height: auto;
+  display: block;
+
+  margin-bottom: clamp(22px, 5vw, 36px);
+
+  object-fit: contain;
+  object-position: left center;
+
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.35));
+}
+
+.hero__eyebrow {
+  font-size: 0.88rem;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(237, 237, 237, 0.82);
+}
+
+.hero__headline {
+  font-size: clamp(2.1rem, 6.2vw, 4.0rem);
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  color: rgba(237,237,237,0.96);
+  margin-bottom: 18px;
+  max-width: 18ch;
+}
+
+/* ===========================
+   "Get an Estimate" Promo Box
+=========================== */
+.estimate-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  width: min(560px, 100%);
+  text-decoration: none;
+
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  background: rgba(0,0,0,0.34);
+  border: 1px solid rgba(255,255,255,0.55);
+
+  color: rgba(237,237,237,0.92);
+
+  transform: translateY(0);
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms ease,
+    color 240ms ease;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.estimate-box::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(64,125,75,0.24) 40%,
+    rgba(64,125,75,0.42) 55%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.estimate-box__title {
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 1.05rem;
+}
+
+.estimate-box__sub {
+  display: block;
+  margin-top: 3px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: rgba(237,237,237,0.78);
+}
+
+.estimate-box__right {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,0.40);
+  background: rgba(255,255,255,0.06);
+}
+
+.estimate-box__arrow {
+  font-size: 1.1rem;
+  color: rgba(237,237,237,0.90);
+  transform: translateX(0);
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.estimate-box:hover {
+  border-color: var(--mint-green);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.estimate-box:hover::before {
+  transform: translateX(120%);
+}
+
+.estimate-box:hover .estimate-box__arrow {
+  transform: translateX(3px);
+}
+
+.estimate-box:active {
+  border-color: var(--mint-green);
+  transform: translateY(-1px);
+}
+
+.estimate-box:focus-visible {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 3px;
+}
+
+/* Reduced motion: remove transitions */
+@media (prefers-reduced-motion: reduce) {
+  .estimate-box,
+  .estimate-box::before,
+  .estimate-box__arrow {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   3) CHECKLIST SECTION (Premium Layout + Background)
+========================================================= */
+.checklist {
+  position: relative;
+  overflow: visible;
+  padding: clamp(56px, 8vw, 110px) 0;
+  color: var(--white);
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.10), transparent 62%),
+    linear-gradient(180deg, rgba(0,0,0,0.86), rgba(0,0,0,0.92));
+}
+
+/* Hero → checklist transition fade */
+.checklist::after {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 40%,
+    rgba(0, 0, 0, 0.75) 70%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+}
+
+@media (min-width: 980px) {
+  .checklist::after {
+    top: -160px;
+    height: 160px;
+  }
+}
+
+/* Optional sheen layer */
+.checklist::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.06) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(255,255,255,0.05) 100%
+  );
+  opacity: 0.55;
+}
+
+.checklist__inner {
+  position: relative;
+  z-index: 1;
+
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+
+  display: grid;
+  gap: clamp(18px, 3vw, 36px);
+
+  grid-template-columns: 1fr;
+  align-items: start;
+  text-align: center;
+}
+
+@media (min-width: 980px) {
+  .checklist__inner {
+    grid-template-columns: 0.95fr 1.25fr;
+    text-align: left;
+    align-items: center;
+  }
+}
+
+.checklist__left {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 980px) {
+  .checklist__left {
+    justify-items: start;
+  }
+}
+
+.checklist__logo {
+  width: clamp(140px, 18vw, 220px);
+  height: auto;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 460ms ease, transform 460ms ease;
+
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.28));
+}
+
+.checklist__logo.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.checklist__title {
+  font-size: clamp(1.55rem, 3.6vw, 2.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.9px;
+  font-weight: 850;
+  color: rgba(237, 237, 237, 0.96);
+  margin-top: 4px;
+}
+
+.checklist__title-accent {
+  color: var(--dark-green);
+  text-shadow: 0 10px 22px rgba(143, 219, 162, 0.18);
+}
+
+/* Scroll-reactive title rule (JS drives --ruleScale) */
+.checklist__title::after {
+  content: "";
+  display: block;
+
+  width: 92px;
+  height: 2px;
+  margin: 12px auto 0;
+
+  background: rgba(143, 219, 162, 0.75);
+  border-radius: 999px;
+
+  transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
+  transform-origin: center;
+  transition: transform 120ms linear;
+}
+
+@media (min-width: 980px) {
+  .checklist__title::after {
+    margin-left: 0;
+    margin-right: 0;
+    transform-origin: left;
+  }
+}
+
+.checklist__subhead {
+  max-width: 44ch;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.80);
+}
+
+.checklist__right {
+  width: 100%;
+}
+
+.checklist__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.checklist__item {
+  position: relative;
+
+  padding: 14px 16px 14px 44px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  font-weight: 750;
+  font-size: clamp(1.0rem, 1.65vw, 1.08rem);
+  letter-spacing: 0.15px;
+
+  min-height: 52px;
+
+  color: rgba(237, 237, 237, 0.94);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.checklist__item::before {
+  content: "✓";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(143, 219, 162, 0.18);
+  border: 1px solid rgba(143, 219, 162, 0.30);
+  color: rgba(237, 237, 237, 0.92);
+
+  font-weight: 900;
+
+  transform: translateY(-50%) scale(0.92);
+  opacity: 0.65;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+}
+
+.checklist__item.is-armed::before {
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+
+.checklist__item.is-typing::after {
+  content: "";
+  display: inline-block;
+
+  width: 10px;
+  height: 1.05em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+
+  background: rgba(237, 237, 237, 0.9);
+  animation: checklistCursor 720ms steps(1) infinite;
+}
+
+@keyframes checklistCursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checklist__logo { transition: none; }
+  .checklist__item.is-typing::after { animation: none; }
+}
+
+/* =========================================================
+   4) SERVICE PANELS (within takeover)
+========================================================= */
+.service-panel {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  padding-top: 88px;
+  display: grid;
+  align-items: end;
+}
+
+.service-panel__media {
+  position: absolute;
+  inset: 0;
+}
+
+.service-panel__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transform: translateY(0) scale(1.06);
+  will-change: transform;
+}
+
+.service-panel__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.52) 35%,
+    rgba(0, 0, 0, 0.22) 70%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+}
+
+.service-panel__inner {
+  position: relative;
+  z-index: 2;
+
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+
+  padding: clamp(22px, 5vw, 72px) 0 clamp(34px, 7vw, 108px);
+
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.service-panel.is-visible .service-panel__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-panel__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(237, 237, 237, 0.76);
+  margin-bottom: 10px;
+}
+
+.service-panel__title {
+  font-size: clamp(2.0rem, 5.2vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.9px;
+  font-weight: 900;
+  color: rgba(237, 237, 237, 0.96);
+  margin-bottom: 12px;
+}
+
+.service-panel__desc {
+  font-size: clamp(1.02rem, 2.2vw, 1.15rem);
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.82);
+  max-width: 60ch;
+  margin-bottom: 18px;
+}
+
+.service-panel__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  color: rgba(237, 237, 237, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.service-panel__btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(143, 219, 162, 0.70);
+  color: var(--white);
+}
+
+.service-panel__btn:active {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-panel__img { transform: scale(1.02); }
+  .service-panel__inner,
+  .service-panel__btn { transition: none; }
+}
+
+/* =========================================================
+   5) TAKEOVER STACK (CSS-native sticky stack)
+========================================================= */
+.takeover-scene {
+  position: relative;
+  background: #000;
+}
+
+.takeover-scene > .stack-panel {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.takeover-scene > .stack-panel:nth-child(1) { z-index: 1; }
+.takeover-scene > .stack-panel:nth-child(2) { z-index: 2; }
+.takeover-scene > .stack-panel:nth-child(3) { z-index: 3; }
+.takeover-scene > .stack-panel:nth-child(4) { z-index: 4; }
+.takeover-scene > .stack-panel:nth-child(5) { z-index: 5; }
+.takeover-scene > .stack-panel:nth-child(6) { z-index: 6; }
+.takeover-scene > .stack-panel:nth-child(7) { z-index: 7; }
+
+/* ---- Seam continuity layer (takeover scoped) ---- */
+#takeoverScene > .stack-panel {
+  isolation: isolate;
+}
+
+#takeoverScene > .service-panel .service-panel__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+#takeoverScene > .service-panel .service-panel__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#takeoverScene > .service-panel .service-panel__inner {
+  position: relative;
+  z-index: 3;
+}
+
+#takeoverScene > #checklist .checklist__inner {
+  position: relative;
+  z-index: 3;
+}
+
+#takeoverScene > .stack-panel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: clamp(80px, 14vh, 160px);
+  pointer-events: none;
+  z-index: 2;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.62) 22%,
+    rgba(0, 0, 0, 0.28) 48%,
+    rgba(0, 0, 0, 0.10) 70%,
+    rgba(0, 0, 0, 0.00) 100%
+  );
+}
+
+/* Scroll-linked seam animation (progressive enhancement) */
+@supports (animation-timeline: view()) {
+  #takeoverScene > .stack-panel {
+    view-timeline-name: --panel;
+    view-timeline-axis: block;
+  }
+
+  #takeoverScene > .stack-panel::after {
+    animation-name: takeoverSeamLift;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 65%;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+
+  @keyframes takeoverSeamLift {
+    from { opacity: 1; height: clamp(120px, 22vh, 240px); }
+    to   { opacity: 0; height: clamp(60px, 10vh, 120px); }
+  }
+
+  #takeoverScene > #checklist.stack-panel::after {
+    animation-range: entry 0% entry 72%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #takeoverScene > .stack-panel::after {
+      animation: none !important;
+      opacity: 1;
+      height: clamp(80px, 14vh, 160px);
+    }
+  }
+}
+
+/* Checklist: softer seam */
+#takeoverScene > #checklist.stack-panel::after {
+  height: clamp(70px, 12vh, 140px);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.84) 0%,
+    rgba(0, 0, 0, 0.52) 24%,
+    rgba(0, 0, 0, 0.22) 55%,
+    rgba(0, 0, 0, 0.00) 100%
+  );
+}
+
+/* Mobile seam stronger */
+@media (max-width: 980px) {
+  #takeoverScene > .stack-panel::after {
+    height: clamp(90px, 16vh, 180px);
+    opacity: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(0, 0, 0, 0.68) 24%,
+      rgba(0, 0, 0, 0.32) 52%,
+      rgba(0, 0, 0, 0.12) 74%,
+      rgba(0, 0, 0, 0.00) 100%
+    );
+  }
+}
+
+/* Takeover checklist overrides (sticky panel fit) */
+#takeoverScene > #checklist.checklist {
+  height: 100svh;
+  padding: 0;
+  display: grid;
+  align-items: center;
+}
+
+#takeoverScene > #checklist .checklist__inner {
+  padding: 88px 0 calc(18px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 980px) {
+  #takeoverScene > #checklist.checklist {
+    align-items: start;
+  }
+
+  #takeoverScene > #checklist .checklist__inner {
+    padding-top: 88px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Takeover mobile alignment for service panels */
+@media (max-width: 980px) {
+  #takeoverScene > .service-panel {
+    align-items: center;
+  }
+
+  #takeoverScene > .service-panel .service-panel__inner {
+    padding-top: clamp(18px, 4vw, 36px);
+    padding-bottom: calc(clamp(18px, 4vw, 36px) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Mobile performance: iOS blur cost reduction */
+@media (max-width: 980px) {
+  .checklist__item {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* Takeover scroll-weight (progressive enhancement) */
+@supports (animation-timeline: view()) {
+  #takeoverScene {
+    --weight-img-lag: 20px;
+    --weight-inner-lag: 26px;
+    --weight-ease: cubic-bezier(0.22, 1.22, 0.36, 1);
+  }
+
+  #takeoverScene > .stack-panel {
+    view-timeline-name: --panel;
+    view-timeline-axis: block;
+  }
+
+  #takeoverScene > .service-panel .service-panel__img {
+    animation-name: takeoverImgWeight;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 55%;
+    animation-timing-function: var(--weight-ease);
+    animation-fill-mode: both;
+    will-change: transform;
+  }
+
+  @keyframes takeoverImgWeight {
+    from { transform: translateY(var(--weight-img-lag)) scale(1.06); }
+    to   { transform: translateY(0px) scale(1.06); }
+  }
+
+  #takeoverScene > .service-panel .service-panel__inner {
+    animation-name: takeoverInnerWeight;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 60%;
+    animation-timing-function: var(--weight-ease);
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes takeoverInnerWeight {
+    from { transform: translateY(var(--weight-inner-lag)); opacity: 0.92; }
+    to   { transform: translateY(0px); opacity: 1; }
+  }
+
+  #takeoverScene > #checklist .checklist__inner {
+    animation-name: takeoverChecklistWeight;
+    animation-timeline: --panel;
+    animation-range: entry 0% entry 55%;
+    animation-timing-function: var(--weight-ease);
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes takeoverChecklistWeight {
+    from { transform: translateY(16px); opacity: 0.96; }
+    to   { transform: translateY(0px); opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #takeoverScene > .service-panel .service-panel__img,
+    #takeoverScene > .service-panel .service-panel__inner,
+    #takeoverScene > #checklist .checklist__inner {
+      animation: none !important;
+    }
+  }
+}
+
+/* =========================================================
+   6) LOCATIONS SERVICED (post-takeover)
+========================================================= */
+.locations {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.10), transparent 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.94));
+
+  color: var(--white);
+}
+
+.locations__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+
+  padding: clamp(28px, 5vw, 72px) 0;
+
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .locations__inner {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: clamp(22px, 3.6vw, 56px);
+    row-gap: clamp(18px, 2vw, 26px);
+  }
+
+  .locations__content { grid-column: 1 / span 6; }
+  .locations__media   { grid-column: 7 / span 6; }
+}
+
+.locations__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(237, 237, 237, 0.76);
+  margin-bottom: 10px;
+}
+
+.locations__title {
+  font-size: clamp(2.0rem, 5.0vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.9px;
+  font-weight: 900;
+  color: rgba(237, 237, 237, 0.96);
+  margin-bottom: 12px;
+}
+
+.locations__lead {
+  font-size: clamp(1.02rem, 2.0vw, 1.12rem);
+  font-weight: 600;
+  color: rgba(237, 237, 237, 0.82);
+  margin-bottom: 18px;
+}
+
+.locations__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.locations__item {
+  padding: 10px 12px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  font-weight: 750;
+  color: rgba(237, 237, 237, 0.92);
+
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+.locations__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  color: rgba(237, 237, 237, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.locations__cta:hover {
+  transform: translateY(-2px);
+  border-color: rgba(143, 219, 162, 0.70);
+  color: var(--white);
+}
+
+.locations__cta:active {
+  transform: translateY(-1px);
+}
+
+.locations__media {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.35);
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 980px) {
+  .locations__media {
+    aspect-ratio: 16 / 11;
+    height: clamp(320px, 34vw, 460px);
+    min-height: unset;
+    border-radius: 22px;
+  }
+}
+
+.locations__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.015);
+  filter: contrast(1.02) saturate(1.02);
+}
+
+.locations__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.38), rgba(0,0,0,0.10), rgba(0,0,0,0.00)),
+    radial-gradient(900px 520px at 18% 22%, rgba(148,214,255,0.10), transparent 60%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143,219,162,0.08), transparent 60%);
+}
+
+.locations__logo {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+
+  width: clamp(88px, 18vw, 140px);
+  height: auto;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.35));
+}
+
+@media (min-width: 980px) {
+  .locations__logo {
+    left: 18px;
+    bottom: 18px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.48);
+  }
+}
+
+@media (max-width: 980px) {
+  .locations__logo {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =========================================================
+         ACP Landscaping — Lawncare Page
+         Uses:
+         - base.css (global foundation)
+         - components.css (header/footer/buttons)
+         - services.css (service page layouts)
+    ========================================================== -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
+
+    <title>Lawncare | ACP Landscaping</title>
+  </head>
+
+  <body>
+    <main class="site">
+      <!-- =========================================================
+           HEADER (reuses components.css)
+      ========================================================== -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header__inner">
+          <a
+            class="site-header__logo"
+            href="index.html"
+            aria-label="ACP Landscaping Home"
+          >
+            ACP Landscaping
+          </a>
+
+          <nav class="site-header__nav" aria-label="Primary navigation">
+            <a class="nav-btn" href="index.html#home">Home</a>
+            <a class="nav-btn" href="maintenance.html">General Maintenance</a>
+            <a class="nav-btn" href="design.html">Design</a>
+            <a class="nav-btn" href="development.html">Development</a>
+            <a class="nav-btn is-active" href="lawncare.html">Lawncare</a>
+            <a class="nav-btn" href="commercial.html">Commercial Portfolio</a>
+            <a class="nav-btn" href="residential.html">Residential Portfolio</a>
+            <a class="nav-btn" href="index.html#about">Who We Are</a>
+          </nav>
+
+          <div class="site-header__actions">
+            <a
+              class="contact-btn"
+              href="tel:+17168227677"
+              aria-label="Contact ACP Landscaping"
+            >
+              Contact Us
+            </a>
+
+            <button
+              class="burger"
+              id="burgerBtn"
+              aria-label="Open menu"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile navigation -->
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a class="mobile-link" href="index.html#home">Home</a>
+          <a class="mobile-link" href="maintenance.html">General Maintenance</a>
+          <a class="mobile-link" href="design.html">Design</a>
+          <a class="mobile-link" href="development.html">Development</a>
+          <a class="mobile-link" href="lawncare.html">Lawncare</a>
+          <a class="mobile-link" href="commercial.html">Commercial Portfolio</a>
+          <a class="mobile-link" href="residential.html"
+            >Residential Portfolio</a
+          >
+          <a class="mobile-link" href="index.html#about">Who We Are</a>
+        </div>
+      </header>
+
+      <!-- =========================================================
+           HERO — Service Introduction
+      ========================================================== -->
+      <section class="service-hero service-hero--lawncare">
+        <div class="service-hero__overlay" aria-hidden="true"></div>
+
+        <div class="service-hero__inner">
+          <p class="service-hero__kicker">ACP Services</p>
+
+          <h1 class="service-hero__title">Professional Lawncare</h1>
+
+          <p class="service-hero__desc">
+            Consistent mowing, sharp edges, and detail-focused lawn service that
+            keeps your property looking clean, healthy, and well-kept throughout
+            the season.
+          </p>
+
+          <a
+            class="service-hero__cta"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Request an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           OVERVIEW — What lawncare includes
+      ========================================================== -->
+      <section class="service-overview">
+        <div class="service-overview__inner">
+          <p class="section-kicker">Overview</p>
+
+          <h2 class="section-title">
+            Consistency is what makes a lawn look premium.
+          </h2>
+
+          <p class="section-text">
+            Great lawncare is not just about cutting grass — it is about keeping
+            the property consistently sharp week after week. Our lawncare
+            services are designed to improve curb appeal, maintain a clean
+            appearance, and support the long-term health and presentation of
+            your lawn throughout the growing season.
+          </p>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SERVICES GRID
+      ========================================================== -->
+      <section class="service-list">
+        <div class="service-list__inner">
+          <p class="section-kicker">What's Included</p>
+
+          <h2 class="section-title">Common lawncare services</h2>
+
+          <div class="service-cards">
+            <article class="service-card">
+              <h3>Routine Mowing</h3>
+              <p>
+                Consistent lawn cutting scheduled to maintain a neat, uniform,
+                and healthy appearance.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Edging</h3>
+              <p>
+                Sharp borders along driveways, walkways, and landscape beds for
+                a cleaner, more finished look.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>String Trimming</h3>
+              <p>
+                Detail trimming around obstacles, structures, and hard-to-reach
+                areas to complete the cut.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Blowing & Final Cleanup</h3>
+              <p>
+                Clearing clippings and debris from sidewalks, patios, and paved
+                surfaces for a polished finish.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Seasonal Fertilization</h3>
+              <p>
+                Support for lawn color, vigor, and overall health through
+                scheduled nutrient applications.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Aeration</h3>
+              <p>
+                Relieving soil compaction to improve air, water, and nutrient
+                movement through the root zone.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Overseeding</h3>
+              <p>
+                Thickening thin areas and improving turf density for a fuller,
+                more uniform lawn.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Custom Lawn Programs</h3>
+              <p>
+                Lawncare service plans adjusted around the size, condition, and
+                goals of your property.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FEATURE SECTION — Why recurring service matters
+      ========================================================== -->
+      <section class="service-feature">
+        <div class="service-feature__inner">
+          <div class="service-feature__content">
+            <p class="section-kicker">Why Lawncare Matters</p>
+
+            <h2 class="section-title">The difference is in the consistency.</h2>
+
+            <p class="section-text service-feature__text">
+              A lawn only looks its best when service is consistent. Regular
+              mowing, clean edges, and timely seasonal treatments create the
+              kind of curb appeal that stands out immediately. Reliable lawncare
+              not only improves appearance — it also supports healthier growth
+              and reduces the chance of the property looking neglected between
+              visits.
+            </p>
+          </div>
+
+          <div class="service-feature__points">
+            <article class="feature-point">
+              <h3>Appearance</h3>
+              <p>
+                Keeps the lawn neat, striped, edged, and visually sharp on a
+                consistent basis.
+              </p>
+            </article>
+
+            <article class="feature-point">
+              <h3>Health</h3>
+              <p>
+                Supports stronger turf growth and better long-term lawn
+                performance through routine care.
+              </p>
+            </article>
+
+            <article class="feature-point">
+              <h3>Reliability</h3>
+              <p>
+                Removes the stress of keeping up with weekly maintenance and
+                seasonal lawn needs.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           PROCESS — How recurring lawncare works
+      ========================================================== -->
+      <section class="service-process">
+        <div class="service-process__inner">
+          <p class="section-kicker">Our Process</p>
+
+          <h2 class="section-title">How we approach lawncare service</h2>
+
+          <div class="service-steps">
+            <article class="service-step">
+              <span class="service-step__number">01</span>
+              <h3>Property Review</h3>
+              <p>
+                We assess lawn size, condition, growth patterns, and service
+                needs to determine the best approach.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">02</span>
+              <h3>Scheduling</h3>
+              <p>
+                We establish a service rhythm that keeps the lawn under control
+                and consistently presentable.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">03</span>
+              <h3>Routine Care</h3>
+              <p>
+                We complete mowing, edging, trimming, and cleanup with an
+                emphasis on detail and consistency.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">04</span>
+              <h3>Seasonal Support</h3>
+              <p>
+                We recommend or provide additional services like fertilization,
+                aeration, and overseeding as needed.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           CTA
+      ========================================================== -->
+      <section class="service-cta">
+        <div class="service-cta__inner">
+          <h2>Ready for a lawn that stays sharp all season?</h2>
+
+          <a
+            class="service-cta__btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Get an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FOOTER (reuses components.css)
+      ========================================================== -->
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__top">
+            <a class="site-footer__brand" href="index.html">
+              ACP Landscaping
+            </a>
+
+            <div class="site-footer__actions">
+              <a class="footer-btn" href="tel:+17168227677">Call</a>
+              <a
+                class="footer-btn footer-btn--primary"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+              >
+                Get an Estimate
+              </a>
+            </div>
+          </div>
+
+          <p class="site-footer__meta">
+            Orchard Park, NY • Serving Hamburg, East Aurora, Elma, Lancaster,
+            Buffalo, Cheektowaga, West Seneca &amp; Clarence
+          </p>
+
+          <div class="site-footer__bottom">
+            <small class="site-footer__copyright">
+              &copy; <span id="year"></span> ACP Landscaping. All Rights
+              Reserved.
+            </small>
+
+            <small class="site-footer__note">
+              Premium outdoor spaces, maintained with precision.
+            </small>
+          </div>
+        </div>
+      </footer>
+
+      <script src="js/main.js"></script>
+    </main>
+  </body>
+</html>
