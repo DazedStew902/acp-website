@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =========================================================
+         ACP Landscaping — Residential Portfolio Page
+         Uses:
+         - base.css (global foundation)
+         - components.css (header/footer/buttons)
+         - services.css (service + portfolio page layouts)
+    ========================================================== -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
+
+    <title>Residential Portfolio | ACP Landscaping</title>
+  </head>
+
+  <body>
+    <main class="site">
+      <!-- =========================================================
+           HEADER (reuses components.css)
+      ========================================================== -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header__inner">
+          <a
+            class="site-header__logo"
+            href="index.html"
+            aria-label="ACP Landscaping Home"
+          >
+            ACP Landscaping
+          </a>
+
+          <nav class="site-header__nav" aria-label="Primary navigation">
+            <a class="nav-btn" href="index.html#home">Home</a>
+            <a class="nav-btn" href="maintenance.html">General Maintenance</a>
+            <a class="nav-btn" href="design.html">Design</a>
+            <a class="nav-btn" href="development.html">Development</a>
+            <a class="nav-btn" href="lawncare.html">Lawncare</a>
+            <a class="nav-btn" href="commercial.html">Commercial Portfolio</a>
+            <a class="nav-btn is-active" href="residential.html">
+              Residential Portfolio
+            </a>
+            <a class="nav-btn" href="index.html#about">Who We Are</a>
+          </nav>
+
+          <div class="site-header__actions">
+            <a
+              class="contact-btn"
+              href="tel:+17168227677"
+              aria-label="Contact ACP Landscaping"
+            >
+              Contact Us
+            </a>
+
+            <button
+              class="burger"
+              id="burgerBtn"
+              aria-label="Open menu"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile navigation -->
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a class="mobile-link" href="index.html#home">Home</a>
+          <a class="mobile-link" href="maintenance.html">General Maintenance</a>
+          <a class="mobile-link" href="design.html">Design</a>
+          <a class="mobile-link" href="development.html">Development</a>
+          <a class="mobile-link" href="lawncare.html">Lawncare</a>
+          <a class="mobile-link" href="commercial.html">Commercial Portfolio</a>
+          <a class="mobile-link" href="residential.html"
+            >Residential Portfolio</a
+          >
+          <a class="mobile-link" href="index.html#about">Who We Are</a>
+        </div>
+      </header>
+
+      <!-- =========================================================
+           HERO — Portfolio Introduction
+      ========================================================== -->
+      <section class="portfolio-hero portfolio-hero--residential">
+        <div class="portfolio-hero__overlay" aria-hidden="true"></div>
+
+        <div class="portfolio-hero__inner">
+          <p class="portfolio-hero__kicker">ACP Portfolio</p>
+
+          <h1 class="portfolio-hero__title">Residential Portfolio</h1>
+
+          <p class="portfolio-hero__desc">
+            Outdoor spaces tailored to the home — designed, installed, and
+            maintained with attention to detail, clean presentation, and
+            long-term curb appeal.
+          </p>
+
+          <a
+            class="portfolio-hero__cta"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Request an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           OVERVIEW — Residential positioning
+      ========================================================== -->
+      <section class="portfolio-overview">
+        <div class="portfolio-overview__inner">
+          <p class="section-kicker">Overview</p>
+
+          <h2 class="section-title">
+            Outdoor work that feels intentional and personal to the home.
+          </h2>
+
+          <p class="section-text">
+            Residential landscaping should do more than look good in a photo. It
+            should fit the home, improve the way the property feels day to day,
+            and stay attractive over time. Our residential work focuses on
+            detail, balance, and a finished result that feels cohesive from the
+            street to the backyard.
+          </p>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           HIGHLIGHTS — What homeowners value
+      ========================================================== -->
+      <section class="portfolio-highlights">
+        <div class="portfolio-highlights__inner">
+          <p class="section-kicker">What We Prioritize</p>
+
+          <h2 class="section-title">
+            Built around beauty, function, and upkeep
+          </h2>
+
+          <div class="portfolio-points">
+            <article class="feature-point">
+              <h3>Curb Appeal</h3>
+              <p>
+                Clean landscape lines and polished outdoor details that elevate
+                the entire home.
+              </p>
+            </article>
+
+            <article class="feature-point">
+              <h3>Usability</h3>
+              <p>
+                Spaces designed and built to be enjoyed, not just looked at.
+              </p>
+            </article>
+
+            <article class="feature-point">
+              <h3>Long-Term Presentation</h3>
+              <p>
+                Choices that help the property continue looking strong as the
+                landscape matures.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           GALLERY — Clickable image slider
+           Replace image paths with your real project photos
+      ========================================================== -->
+      <section
+        class="portfolio-gallery-section"
+        aria-label="Residential gallery"
+      >
+        <div class="portfolio-gallery-section__inner">
+          <p class="section-kicker">Project Gallery</p>
+
+          <h2 class="section-title">Residential work highlights</h2>
+
+          <div
+            class="portfolio-gallery"
+            data-gallery
+            aria-label="Residential project image gallery"
+          >
+            <button
+              class="portfolio-gallery__nav portfolio-gallery__nav--prev"
+              type="button"
+              data-gallery-prev
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+
+            <div class="portfolio-gallery__viewport">
+              <div class="portfolio-gallery__track" data-gallery-track>
+                <figure class="portfolio-gallery__slide is-active">
+                  <img
+                    src="images/residential-1.jpg"
+                    alt="Residential landscape project photo 1"
+                  />
+                </figure>
+
+                <figure class="portfolio-gallery__slide">
+                  <img
+                    src="images/residential-2.jpg"
+                    alt="Residential landscape project photo 2"
+                  />
+                </figure>
+
+                <figure class="portfolio-gallery__slide">
+                  <img
+                    src="images/residential-3.jpg"
+                    alt="Residential landscape project photo 3"
+                  />
+                </figure>
+
+                <figure class="portfolio-gallery__slide">
+                  <img
+                    src="images/residential-4.jpg"
+                    alt="Residential landscape project photo 4"
+                  />
+                </figure>
+              </div>
+            </div>
+
+            <button
+              class="portfolio-gallery__nav portfolio-gallery__nav--next"
+              type="button"
+              data-gallery-next
+              aria-label="Next image"
+            >
+              ›
+            </button>
+
+            <div class="portfolio-gallery__dots" data-gallery-dots>
+              <button
+                class="portfolio-gallery__dot is-active"
+                type="button"
+                aria-label="Go to image 1"
+              ></button>
+              <button
+                class="portfolio-gallery__dot"
+                type="button"
+                aria-label="Go to image 2"
+              ></button>
+              <button
+                class="portfolio-gallery__dot"
+                type="button"
+                aria-label="Go to image 3"
+              ></button>
+              <button
+                class="portfolio-gallery__dot"
+                type="button"
+                aria-label="Go to image 4"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           CTA
+      ========================================================== -->
+      <section class="service-cta">
+        <div class="service-cta__inner">
+          <h2>
+            Ready to improve the look and feel of your home’s outdoor space?
+          </h2>
+
+          <a
+            class="service-cta__btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Get an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FOOTER (reuses components.css)
+      ========================================================== -->
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__top">
+            <a class="site-footer__brand" href="index.html">
+              ACP Landscaping
+            </a>
+
+            <div class="site-footer__actions">
+              <a class="footer-btn" href="tel:+17168227677">Call</a>
+              <a
+                class="footer-btn footer-btn--primary"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+              >
+                Get an Estimate
+              </a>
+            </div>
+          </div>
+
+          <p class="site-footer__meta">
+            Orchard Park, NY • Serving Hamburg, East Aurora, Elma, Lancaster,
+            Buffalo, Cheektowaga, West Seneca &amp; Clarence
+          </p>
+
+          <div class="site-footer__bottom">
+            <small class="site-footer__copyright">
+              &copy; <span id="year"></span> ACP Landscaping. All Rights
+              Reserved.
+            </small>
+
+            <small class="site-footer__note">
+              Premium outdoor spaces, maintained with precision.
+            </small>
+          </div>
+        </div>
+      </footer>
+
+      <script src="js/main.js"></script>
+      <script src="js/portfolio.js"></script>
+    </main>
+  </body>
+</html>

@@ -67,10 +67,11 @@
 /* Nav: uses remaining space, never pushes CTA off screen */
 .site-header__nav {
   flex: 1 1 auto;
-  min-width: 0; /* CRITICAL: allows overflow to behave correctly */
+  min-width: 0;
 
-  display: none; /* hidden on mobile */
-  justify-content: center;
+  display: none;
+  justify-content: flex-start;
+  align-items: center;
   gap: 10px;
 
   overflow-x: auto;

@@ -432,3 +432,283 @@
     linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.72)),
     url("../images/lawncare-desktop.jpg") center / cover no-repeat;
 }
+
+/* =====================================================================
+   Portfolio Page Additions
+   Purpose:
+   - Extends service page styling for commercial.html and residential.html
+   - Adds portfolio hero variants + gallery slider
+===================================================================== */
+
+
+/* =========================================================
+   11) PORTFOLIO HERO
+========================================================= */
+
+.portfolio-hero {
+  position: relative;
+  min-height: 75svh;
+  padding-top: 88px;
+
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+
+  color: var(--white);
+}
+
+.portfolio-hero--commercial {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.72)),
+    url("../images/commercial-desktop.jpg") center / cover no-repeat;
+}
+
+.portfolio-hero--residential {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.72)),
+    url("../images/residential-desktop.jpg") center / cover no-repeat;
+}
+
+.portfolio-hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.portfolio-hero__inner {
+  position: relative;
+  z-index: 1;
+
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+
+  padding:
+    clamp(32px, 6vw, 70px)
+    0
+    clamp(48px, 7vw, 110px);
+}
+
+.portfolio-hero__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.85px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(237, 237, 237, 0.76);
+
+  margin-bottom: 10px;
+}
+
+.portfolio-hero__title {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  font-weight: 900;
+
+  margin-bottom: 14px;
+}
+
+.portfolio-hero__desc {
+  max-width: 60ch;
+
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 600;
+
+  color: rgba(237, 237, 237, 0.84);
+
+  margin-bottom: 20px;
+}
+
+.portfolio-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  text-decoration: none;
+  color: var(--white);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  font-weight: 800;
+  letter-spacing: 0.25px;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease;
+}
+
+.portfolio-hero__cta:hover {
+  transform: translateY(-2px);
+  border-color: var(--dark-green);
+}
+
+
+/* =========================================================
+   12) PORTFOLIO OVERVIEW
+========================================================= */
+
+.portfolio-overview {
+  padding: clamp(60px, 7vw, 110px) 0;
+}
+
+.portfolio-overview__inner {
+  width: min(900px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+/* =========================================================
+   13) PORTFOLIO HIGHLIGHTS
+========================================================= */
+
+.portfolio-highlights {
+  padding: 0 0 clamp(60px, 7vw, 110px);
+}
+
+.portfolio-highlights__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.portfolio-points {
+  margin-top: 40px;
+
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+
+/* =========================================================
+   14) PORTFOLIO GALLERY
+========================================================= */
+
+.portfolio-gallery-section {
+  padding: clamp(60px, 7vw, 110px) 0;
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.08), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.08), transparent 62%);
+}
+
+.portfolio-gallery-section__inner {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.portfolio-gallery {
+  position: relative;
+  margin-top: 40px;
+}
+
+.portfolio-gallery__viewport {
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.16);
+  background: rgba(255, 255, 255, 0.50);
+}
+
+.portfolio-gallery__track {
+  display: flex;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.portfolio-gallery__slide {
+  min-width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.portfolio-gallery__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-gallery__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(0, 0, 0, 0.60);
+  color: rgba(237, 237, 237, 0.96);
+  font-size: 2rem;
+  line-height: 1;
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 220ms ease;
+}
+
+.portfolio-gallery__nav:hover {
+  background: rgba(0, 0, 0, 0.78);
+}
+
+.portfolio-gallery__nav--prev {
+  left: 16px;
+}
+
+.portfolio-gallery__nav--next {
+  right: 16px;
+}
+
+.portfolio-gallery__dots {
+  margin-top: 18px;
+
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.portfolio-gallery__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: rgba(0, 0, 0, 0.22);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.portfolio-gallery__dot.is-active {
+  background: var(--mint-green);
+  transform: scale(1.12);
+}
+
+@media (max-width: 700px) {
+  .portfolio-gallery__nav {
+    width: 44px;
+    height: 44px;
+    font-size: 1.6rem;
+  }
+
+  .portfolio-gallery__nav--prev {
+    left: 10px;
+  }
+
+  .portfolio-gallery__nav--next {
+    right: 10px;
+  }
+
+  .portfolio-gallery__slide {
+    aspect-ratio: 4 / 3;
+  }
+}
