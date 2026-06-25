@@ -199,7 +199,7 @@
 
 .hero__logo {
   width: clamp(140px, 28vw, 240px);
-  max-height: 84px;
+  max-height: 140px;
   height: auto;
   display: block;
 
@@ -344,90 +344,79 @@
 }
 
 /* =========================================================
-   3) CHECKLIST SECTION (Premium Layout + Background)
+   3) CHECKLIST SECTION (Premium Brand Standard)
 ========================================================= */
+
 .checklist {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   padding: clamp(56px, 8vw, 110px) 0;
   color: var(--white);
 
   background:
-    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
-    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.10), transparent 62%),
-    linear-gradient(180deg, rgba(0,0,0,0.86), rgba(0,0,0,0.92));
+    radial-gradient(800px 520px at 18% 18%, rgba(143, 219, 162, 0.13), transparent 58%),
+    radial-gradient(760px 520px at 82% 76%, rgba(148, 214, 255, 0.08), transparent 60%),
+    linear-gradient(135deg, rgba(10, 14, 11, 0.98), rgba(0, 0, 0, 0.94) 58%, rgba(8, 18, 11, 0.98));
 }
 
-/* Hero → checklist transition fade */
-.checklist::after {
-  content: "";
-  position: absolute;
-  top: -120px;
-  left: 0;
-  right: 0;
-  height: 120px;
-  pointer-events: none;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.45) 40%,
-    rgba(0, 0, 0, 0.75) 70%,
-    rgba(0, 0, 0, 0.92) 100%
-  );
-}
-
-@media (min-width: 980px) {
-  .checklist::after {
-    top: -160px;
-    height: 160px;
-  }
-}
-
-/* Optional sheen layer */
+/* Subtle luxury texture */
 .checklist::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.055), transparent 30%, transparent 68%, rgba(143, 219, 162, 0.05)),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.035), transparent 38%);
+
+  opacity: 0.75;
+}
+
+/* Hero → checklist transition fade */
+.checklist::after {
+  content: "";
+  position: absolute;
+  top: -150px;
+  left: 0;
+  right: 0;
+  height: 150px;
+  pointer-events: none;
+
   background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.06) 0%,
-    transparent 35%,
-    transparent 65%,
-    rgba(255,255,255,0.05) 100%
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.42) 42%,
+    rgba(0, 0, 0, 0.78) 100%
   );
-  opacity: 0.55;
 }
 
 .checklist__inner {
   position: relative;
   z-index: 1;
 
-  width: min(1200px, 92vw);
+  width: min(1180px, 92vw);
   margin: 0 auto;
 
   display: grid;
-  gap: clamp(18px, 3vw, 36px);
-
+  gap: clamp(22px, 4vw, 42px);
   grid-template-columns: 1fr;
-  align-items: start;
+  align-items: center;
+
   text-align: center;
 }
 
 @media (min-width: 980px) {
   .checklist__inner {
-    grid-template-columns: 0.95fr 1.25fr;
+    grid-template-columns: 0.9fr 1.1fr;
     text-align: left;
-    align-items: center;
   }
 }
 
 .checklist__left {
   display: grid;
   justify-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 @media (min-width: 980px) {
@@ -437,14 +426,14 @@
 }
 
 .checklist__logo {
-  width: clamp(140px, 18vw, 220px);
+  width: clamp(135px, 17vw, 210px);
   height: auto;
 
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 460ms ease, transform 460ms ease;
 
-  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.34));
 }
 
 .checklist__logo.is-visible {
@@ -453,29 +442,32 @@
 }
 
 .checklist__title {
-  font-size: clamp(1.55rem, 3.6vw, 2.35rem);
-  line-height: 1.08;
-  letter-spacing: -0.9px;
-  font-weight: 850;
-  color: rgba(237, 237, 237, 0.96);
-  margin-top: 4px;
+  max-width: 11ch;
+
+  font-size: clamp(1.85rem, 4.2vw, 3rem);
+  line-height: 0.98;
+  letter-spacing: -1.2px;
+  font-weight: 950;
+
+  color: rgba(237, 237, 237, 0.98);
+
+  margin-top: 6px;
 }
 
 .checklist__title-accent {
   color: var(--dark-green);
-  text-shadow: 0 10px 22px rgba(143, 219, 162, 0.18);
+  text-shadow: 0 12px 26px rgba(143, 219, 162, 0.20);
 }
 
-/* Scroll-reactive title rule (JS drives --ruleScale) */
 .checklist__title::after {
   content: "";
   display: block;
 
-  width: 92px;
+  width: 96px;
   height: 2px;
-  margin: 12px auto 0;
+  margin: 16px auto 0;
 
-  background: rgba(143, 219, 162, 0.75);
+  background: linear-gradient(90deg, var(--dark-green), transparent);
   border-radius: 999px;
 
   transform: scaleX(calc(var(--ruleScale, 0) * 1.35));
@@ -492,17 +484,49 @@
 }
 
 .checklist__subhead {
-  max-width: 44ch;
-  font-size: 1.02rem;
-  font-weight: 600;
-  color: rgba(237, 237, 237, 0.80);
+  max-width: 42ch;
+
+  font-size: clamp(1rem, 1.7vw, 1.1rem);
+  font-weight: 650;
+  color: rgba(237, 237, 237, 0.78);
 }
 
 .checklist__right {
+  position: relative;
+
   width: 100%;
+  padding: clamp(16px, 2.4vw, 24px);
+  border-radius: 26px;
+
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.checklist__right::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background:
+    radial-gradient(500px 260px at 20% 0%, rgba(143, 219, 162, 0.10), transparent 62%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 42%);
+
+  opacity: 0.8;
 }
 
 .checklist__list {
+  position: relative;
+  z-index: 1;
+
   list-style: none;
   padding: 0;
   margin: 0;
@@ -515,67 +539,69 @@
 .checklist__item {
   position: relative;
 
-  padding: 14px 16px 14px 44px;
+  min-height: 56px;
+  padding: 15px 18px 15px 48px;
   border-radius: 16px;
 
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  font-weight: 750;
-  font-size: clamp(1.0rem, 1.65vw, 1.08rem);
-  letter-spacing: 0.15px;
-
-  min-height: 52px;
+  background: rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.11);
 
   color: rgba(237, 237, 237, 0.94);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+
+  font-weight: 800;
+  font-size: clamp(0.98rem, 1.55vw, 1.08rem);
+  letter-spacing: 0.12px;
+
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .checklist__item::before {
   content: "✓";
   position: absolute;
-  left: 14px;
+  left: 15px;
   top: 50%;
-  transform: translateY(-50%);
 
-  width: 22px;
-  height: 22px;
-  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 9px;
 
   display: grid;
   place-items: center;
 
-  background: rgba(143, 219, 162, 0.18);
-  border: 1px solid rgba(143, 219, 162, 0.30);
-  color: rgba(237, 237, 237, 0.92);
+  background: rgba(143, 219, 162, 0.16);
+  border: 1px solid rgba(143, 219, 162, 0.34);
 
-  font-weight: 900;
+  color: var(--dark-green);
+  font-weight: 950;
+  font-size: 0.9rem;
 
   transform: translateY(-50%) scale(0.92);
-  opacity: 0.65;
+  opacity: 0.68;
 
   transition:
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 220ms ease;
+    opacity 220ms ease,
+    background 220ms ease;
 }
 
 .checklist__item.is-armed::before {
   transform: translateY(-50%) scale(1);
   opacity: 1;
+  background: rgba(143, 219, 162, 0.22);
 }
 
 .checklist__item.is-typing::after {
   content: "";
   display: inline-block;
 
-  width: 10px;
+  width: 9px;
   height: 1.05em;
   margin-left: 6px;
   vertical-align: -0.12em;
 
-  background: rgba(237, 237, 237, 0.9);
+  background: rgba(143, 219, 162, 0.9);
   animation: checklistCursor 720ms steps(1) infinite;
 }
 
@@ -584,9 +610,82 @@
   50%, 100% { opacity: 0; }
 }
 
+@media (max-width: 520px) {
+  .checklist__right {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .checklist__item {
+    min-height: 52px;
+    padding: 14px 14px 14px 44px;
+    border-radius: 14px;
+  }
+
+  .checklist__item::before {
+    left: 13px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .checklist__logo { transition: none; }
-  .checklist__item.is-typing::after { animation: none; }
+  .checklist__logo {
+    transition: none;
+  }
+
+  .checklist__item.is-typing::after {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   CHECKLIST MOBILE FIT
+   - Keeps checklist inside the takeover panel on small screens
+========================================================= */
+
+@media (max-width: 520px) {
+  #takeoverScene > #checklist .checklist__inner {
+    padding-top: 78px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    gap: 14px;
+  }
+
+  .checklist__logo {
+    width: clamp(130px, 42vw, 170px);
+  }
+
+  .checklist__title {
+    font-size: clamp(1.55rem, 8vw, 2.1rem);
+  }
+
+  .checklist__subhead {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .checklist__right {
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .checklist__list {
+    gap: 9px;
+  }
+
+  .checklist__item {
+    min-height: 46px;
+    padding: 11px 12px 11px 42px;
+    border-radius: 13px;
+
+    font-size: 0.92rem;
+    line-height: 1.2;
+  }
+
+  .checklist__item::before {
+    left: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 8px;
+  }
 }
 
 /* =========================================================
@@ -1149,5 +1248,552 @@
   .locations__logo {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+}
+
+/* =====================================================================
+   Transformations Landing Page
+   Purpose:
+   - Dedicated Meta Ads landing page
+   - Built for quote form conversions
+===================================================================== */
+
+
+/* =========================================================
+   1) LANDING HERO
+========================================================= */
+
+.landing-hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+
+  display: grid;
+  align-items: end;
+
+  color: var(--white);
+}
+
+.landing-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.landing-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-hero__overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.14), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.12), transparent 62%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.28));
+}
+
+.landing-hero__inner {
+  position: relative;
+  z-index: 1;
+
+  width: min(1080px, 92vw);
+  margin: 0 auto;
+
+  padding: clamp(48px, 8vw, 90px) 0 clamp(54px, 8vw, 105px);
+}
+
+.landing-hero__logo {
+  width: clamp(180px, 22vw, 320px);
+  height: auto;
+  display: block;
+
+  margin-bottom: clamp(22px, 5vw, 36px);
+
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.34));
+}
+
+.landing-hero__kicker {
+  display: inline-flex;
+
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  background: rgba(143, 219, 162, 0.14);
+  border: 1px solid rgba(143, 219, 162, 0.28);
+
+  color: rgba(237, 237, 237, 0.92);
+
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+}
+
+.landing-hero__title {
+  max-width: 12ch;
+
+  font-size: clamp(2.45rem, 8vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: -1.8px;
+  font-weight: 950;
+
+  color: rgba(237, 237, 237, 0.98);
+
+  margin-bottom: 18px;
+}
+
+.landing-hero__desc {
+  max-width: 58ch;
+
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  font-weight: 650;
+  color: rgba(237, 237, 237, 0.86);
+
+  margin-bottom: 24px;
+}
+
+.landing-hero__cta,
+.landing-section-cta,
+.landing-final__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  color: var(--white);
+
+  padding: 15px 20px;
+  border-radius: 14px;
+
+  background: rgba(64, 125, 75, 0.92);
+  border: 1px solid rgba(143, 219, 162, 0.50);
+
+  font-weight: 900;
+  letter-spacing: 0.25px;
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 220ms ease,
+    border-color 220ms ease;
+}
+
+.landing-hero__cta:hover,
+.landing-section-cta:hover,
+.landing-final__btn:hover {
+  transform: translateY(-2px);
+  background: rgba(64, 125, 75, 1);
+  border-color: rgba(143, 219, 162, 0.76);
+}
+
+.landing-hero__trust {
+  margin-top: 12px;
+
+  color: rgba(237, 237, 237, 0.78);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+
+/* =========================================================
+   2) TRUST BAR
+========================================================= */
+
+.landing-trust {
+  background: rgba(0, 0, 0, 0.94);
+  color: var(--white);
+}
+
+.landing-trust__inner {
+  width: min(1080px, 92vw);
+  margin: 0 auto;
+  padding: 18px 0;
+
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.landing-trust__item {
+  text-align: center;
+}
+
+.landing-trust__item strong {
+  display: block;
+
+  color: var(--dark-green);
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.landing-trust__item span {
+  display: block;
+  margin-top: 4px;
+
+  color: rgba(237, 237, 237, 0.72);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   3) PORTFOLIO PREVIEW
+========================================================= */
+
+.landing-portfolio {
+  padding: clamp(62px, 8vw, 118px) 0;
+
+  background:
+    radial-gradient(900px 520px at 18% 22%, rgba(148, 214, 255, 0.08), transparent 62%),
+    radial-gradient(900px 520px at 82% 70%, rgba(143, 219, 162, 0.08), transparent 62%);
+}
+
+.landing-portfolio__inner {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-grid {
+  margin-top: 40px;
+
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+.landing-grid__item {
+  overflow: hidden;
+  border-radius: 20px;
+
+  aspect-ratio: 4 / 3;
+
+  background: rgba(255, 255, 255, 0.50);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+}
+
+.landing-grid__item img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-section-cta {
+  margin-top: 28px;
+}
+
+@media (hover: hover) {
+  .landing-grid__item:hover img {
+    transform: scale(1.04);
+  }
+}
+
+@media (min-width: 760px) {
+  .landing-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .landing-grid__item--large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+
+/* =========================================================
+   4) SERVICES
+========================================================= */
+
+.landing-services {
+  padding: clamp(62px, 8vw, 118px) 0;
+}
+
+.landing-services__inner {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-service-cards {
+  margin-top: 40px;
+
+  display: grid;
+  gap: 18px;
+}
+
+.landing-service-card {
+  padding: 24px;
+  border-radius: 18px;
+
+  text-align: left;
+
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
+}
+
+.landing-service-card h3 {
+  margin-bottom: 8px;
+
+  color: var(--black);
+  font-size: 1.12rem;
+  font-weight: 900;
+}
+
+.landing-service-card p {
+  color: rgba(38, 38, 38, 0.78);
+  font-weight: 650;
+}
+
+@media (min-width: 820px) {
+  .landing-service-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* =========================================================
+   5) PROCESS
+========================================================= */
+
+.landing-process {
+  padding: clamp(62px, 8vw, 118px) 0;
+
+  background: rgba(0, 0, 0, 0.93);
+  color: var(--white);
+}
+
+.landing-process__inner {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-process .section-title {
+  color: rgba(237, 237, 237, 0.96);
+}
+
+.landing-steps {
+  margin-top: 40px;
+
+  display: grid;
+  gap: 18px;
+}
+
+.landing-step {
+  padding: 24px;
+  border-radius: 18px;
+
+  text-align: left;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.20);
+}
+
+.landing-step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+
+  border-radius: 999px;
+
+  background: rgba(143, 219, 162, 0.16);
+  border: 1px solid rgba(143, 219, 162, 0.28);
+
+  color: var(--dark-green);
+  font-weight: 950;
+  font-size: 0.9rem;
+}
+
+.landing-step h3 {
+  margin-bottom: 8px;
+
+  color: rgba(237, 237, 237, 0.96);
+  font-size: 1.12rem;
+  font-weight: 900;
+}
+
+.landing-step p {
+  color: rgba(237, 237, 237, 0.76);
+  font-weight: 650;
+}
+
+@media (min-width: 820px) {
+  .landing-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* =========================================================
+   6) SERVICE AREA
+========================================================= */
+
+.landing-area {
+  padding: clamp(62px, 8vw, 118px) 0;
+}
+
+.landing-area__inner {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+
+  display: grid;
+  gap: 34px;
+  align-items: center;
+}
+
+.landing-area__text {
+  margin: 0;
+}
+
+.landing-area__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.landing-area__list span {
+  display: inline-flex;
+
+  padding: 10px 13px;
+  border-radius: 999px;
+
+  background: rgba(64, 125, 75, 0.10);
+  border: 1px solid rgba(64, 125, 75, 0.18);
+
+  color: var(--mint-green);
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+@media (min-width: 900px) {
+  .landing-area__inner {
+    grid-template-columns: 1fr 0.9fr;
+  }
+}
+
+
+/* =========================================================
+   7) FINAL CTA
+========================================================= */
+
+.landing-final {
+  padding: clamp(70px, 9vw, 125px) 0;
+
+  background:
+    radial-gradient(800px 460px at 18% 22%, rgba(148, 214, 255, 0.10), transparent 62%),
+    radial-gradient(800px 460px at 82% 70%, rgba(143, 219, 162, 0.12), transparent 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.90), rgba(0, 0, 0, 0.96));
+
+  color: var(--white);
+}
+
+.landing-final__inner {
+  width: min(900px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-final__inner h2 {
+  margin-bottom: 24px;
+
+  color: rgba(237, 237, 237, 0.96);
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.8px;
+}
+
+.landing-final__secondary {
+  margin-top: 20px;
+
+  color: rgba(237, 237, 237, 0.68);
+
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.landing-final__website-link {
+  color: var(--dark-green);
+
+  text-decoration: none;
+  font-weight: 800;
+
+  transition:
+    color 220ms ease,
+    opacity 220ms ease;
+}
+
+.landing-final__website-link:hover {
+  color: var(--white);
+}
+
+.landing-final__website-link:focus-visible {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.landing-final__secondary {
+  margin-top: 18px;
+  text-align: center;
+}
+
+/* =========================================================
+   8) MOBILE STICKY CTA
+========================================================= */
+
+.landing-sticky-cta {
+  position: fixed;
+  left: 14px;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 18px;
+  border-radius: 16px;
+
+  text-decoration: none;
+  color: var(--white);
+
+  background: rgba(64, 125, 75, 0.96);
+  border: 1px solid rgba(143, 219, 162, 0.55);
+
+  font-weight: 950;
+  letter-spacing: 0.2px;
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+}
+
+@media (max-width: 760px) {
+  .landing-sticky-cta {
+    display: flex;
+  }
+
+  .landing-final {
+    padding-bottom: 110px;
   }
 }

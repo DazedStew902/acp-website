@@ -74,8 +74,47 @@
       });
     });
 
+            /* =========================================================
+       5) TOUCH / SWIPE SUPPORT
+    ========================================================= */
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    gallery.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      },
+      { passive: true }
+    );
+
+    gallery.addEventListener(
+      "touchend",
+      (event) => {
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        /* Ignore mostly vertical gestures */
+        if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+        /* Require meaningful swipe distance */
+        if (Math.abs(deltaX) < 50) return;
+
+        if (deltaX < 0) {
+          goToNext();
+        } else {
+          goToPrevious();
+        }
+      },
+      { passive: true }
+    );
+
     /* =========================================================
-       5) KEYBOARD SUPPORT
+       6) KEYBOARD SUPPORT
     ========================================================= */
     gallery.addEventListener("keydown", (event) => {
       if (event.key === "ArrowLeft") {
@@ -90,7 +129,7 @@
     gallery.setAttribute("tabindex", "0");
 
     /* =========================================================
-       6) INITIALIZE
+       7) INITIALIZE
     ========================================================= */
     renderGallery();
   });
