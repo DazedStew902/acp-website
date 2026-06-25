@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =========================================================
+         ACP Landscaping — Design Page
+         Uses:
+         - base.css (global foundation)
+         - components.css (header/footer/buttons)
+         - services.css (service page layouts)
+    ========================================================== -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
+
+    <title>Design | ACP Landscaping</title>
+  </head>
+
+  <body>
+    <main class="site">
+      <!-- =========================================================
+           HEADER (reuses components.css)
+      ========================================================== -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header__inner">
+          <a
+            class="site-header__logo"
+            href="index.html"
+            aria-label="ACP Landscaping Home"
+          >
+            ACP Landscaping
+          </a>
+
+          <nav class="site-header__nav" aria-label="Primary navigation">
+            <a class="nav-btn" href="index.html#home">Home</a>
+            <a class="nav-btn" href="maintenance.html">General Maintenance</a>
+            <a class="nav-btn is-active" href="design.html">Design</a>
+            <a class="nav-btn" href="development.html">Development</a>
+            <a class="nav-btn" href="lawncare.html">Lawncare</a>
+            <a class="nav-btn" href="commercial.html">Commercial Portfolio</a>
+            <a class="nav-btn" href="residential.html">Residential Portfolio</a>
+            <a class="nav-btn" href="index.html#about">Who We Are</a>
+          </nav>
+
+          <div class="site-header__actions">
+            <a
+              class="contact-btn"
+              href="tel:+17168227677"
+              aria-label="Contact ACP Landscaping"
+            >
+              Contact Us
+            </a>
+
+            <button
+              class="burger"
+              id="burgerBtn"
+              aria-label="Open menu"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile navigation -->
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a class="mobile-link" href="index.html#home">Home</a>
+          <a class="mobile-link" href="maintenance.html">General Maintenance</a>
+          <a class="mobile-link" href="design.html">Design</a>
+          <a class="mobile-link" href="development.html">Development</a>
+          <a class="mobile-link" href="lawncare.html">Lawncare</a>
+          <a class="mobile-link" href="commercial.html">Commercial Portfolio</a>
+          <a class="mobile-link" href="residential.html"
+            >Residential Portfolio</a
+          >
+          <a class="mobile-link" href="index.html#about">Who We Are</a>
+        </div>
+      </header>
+
+      <!-- =========================================================
+           HERO — Service Introduction
+      ========================================================== -->
+      <section class="service-hero service-hero--design">
+        <div class="service-hero__overlay" aria-hidden="true"></div>
+
+        <div class="service-hero__inner">
+          <p class="service-hero__kicker">ACP Services</p>
+
+          <h1 class="service-hero__title">Landscape Design</h1>
+
+          <p class="service-hero__desc">
+            Thoughtful outdoor design built around your property, your goals,
+            and the long-term look and function of the space.
+          </p>
+
+          <a
+            class="service-hero__cta"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Request an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           OVERVIEW — What design includes
+      ========================================================== -->
+      <section class="service-overview">
+        <div class="service-overview__inner">
+          <p class="section-kicker">Overview</p>
+
+          <h2 class="section-title">Design with purpose and visual impact.</h2>
+
+          <p class="section-text">
+            Our design services help transform underused or outdated outdoor
+            spaces into clean, intentional landscapes that feel cohesive and
+            elevated. Whether you want to refresh foundation beds, improve curb
+            appeal, or plan a full outdoor layout, ACP Landscaping creates
+            designs that are both visually strong and practical to maintain.
+          </p>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SERVICES GRID
+      ========================================================== -->
+      <section class="service-list">
+        <div class="service-list__inner">
+          <p class="section-kicker">What's Included</p>
+
+          <h2 class="section-title">Common design services</h2>
+
+          <div class="service-cards">
+            <article class="service-card">
+              <h3>Landscape Bed Design</h3>
+              <p>
+                Planning bed shapes, dimensions, and layout for a cleaner,
+                better-balanced look around the property.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Foundation Planting Design</h3>
+              <p>
+                Structured planting plans that complement the home and create a
+                polished first impression.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Plant Selection</h3>
+              <p>
+                Choosing shrubs, perennials, ornamental grasses, and accent
+                plants that fit the space and desired aesthetic.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Entryway & Front Yard Design</h3>
+              <p>
+                Layout concepts focused on curb appeal, symmetry, and visual
+                flow from the street to the entrance.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Mulch & Material Planning</h3>
+              <p>
+                Recommending finishes and materials that unify the design and
+                improve overall presentation.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Hardscape Concept Planning</h3>
+              <p>
+                Early-stage planning for walkways, patios, edging, and outdoor
+                features that support the landscape.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Renovation Layouts</h3>
+              <p>
+                Redesigning overgrown or outdated spaces with a more intentional
+                structure and cleaner visual hierarchy.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Custom Design Consultation</h3>
+              <p>
+                Recommendations tailored to your property, style preferences,
+                and long-term goals for the space.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           PROCESS — How design work begins
+      ========================================================== -->
+      <section class="service-process">
+        <div class="service-process__inner">
+          <p class="section-kicker">Our Process</p>
+
+          <h2 class="section-title">How we approach a design project</h2>
+
+          <div class="service-steps">
+            <article class="service-step">
+              <span class="service-step__number">01</span>
+              <h3>Walkthrough</h3>
+              <p>
+                We assess the property, existing conditions, and opportunities
+                for improvement.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">02</span>
+              <h3>Planning</h3>
+              <p>
+                We build a layout direction around function, scale, and the
+                desired overall look.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">03</span>
+              <h3>Selection</h3>
+              <p>
+                We identify suitable materials and plantings that support the
+                design vision.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">04</span>
+              <h3>Execution Path</h3>
+              <p>
+                We prepare a clear direction for installation, upgrades, or
+                phased improvements.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           CTA
+      ========================================================== -->
+      <section class="service-cta">
+        <div class="service-cta__inner">
+          <h2>Ready to plan a cleaner, more intentional outdoor space?</h2>
+
+          <a
+            class="service-cta__btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Get an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FOOTER (reuses components.css)
+      ========================================================== -->
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__top">
+            <a class="site-footer__brand" href="index.html">
+              ACP Landscaping
+            </a>
+
+            <div class="site-footer__actions">
+              <a class="footer-btn" href="tel:+17168227677">Call</a>
+              <a
+                class="footer-btn footer-btn--primary"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+              >
+                Get an Estimate
+              </a>
+            </div>
+          </div>
+
+          <p class="site-footer__meta">
+            Orchard Park, NY • Serving Hamburg, East Aurora, Elma, Lancaster,
+            Buffalo, Cheektowaga, West Seneca &amp; Clarence
+          </p>
+
+          <div class="site-footer__bottom">
+            <small class="site-footer__copyright">
+              &copy; <span id="year"></span> ACP Landscaping. All Rights
+              Reserved.
+            </small>
+
+            <small class="site-footer__note">
+              Premium outdoor spaces, maintained with precision.
+            </small>
+          </div>
+        </div>
+      </footer>
+
+      <script src="js/main.js"></script>
+    </main>
+  </body>
+</html>

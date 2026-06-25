@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =========================================================
+         ACP Landscaping — Development Page
+         Uses:
+         - base.css (global foundation)
+         - components.css (header/footer/buttons)
+         - services.css (service page layouts)
+    ========================================================== -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
+
+    <title>Development | ACP Landscaping</title>
+  </head>
+
+  <body>
+    <main class="site">
+      <!-- =========================================================
+           HEADER (reuses components.css)
+      ========================================================== -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header__inner">
+          <a
+            class="site-header__logo"
+            href="index.html"
+            aria-label="ACP Landscaping Home"
+          >
+            ACP Landscaping
+          </a>
+
+          <nav class="site-header__nav" aria-label="Primary navigation">
+            <a class="nav-btn" href="index.html#home">Home</a>
+            <a class="nav-btn" href="maintenance.html">General Maintenance</a>
+            <a class="nav-btn" href="design.html">Design</a>
+            <a class="nav-btn is-active" href="development.html">Development</a>
+            <a class="nav-btn" href="lawncare.html">Lawncare</a>
+            <a class="nav-btn" href="commercial.html">Commercial Portfolio</a>
+            <a class="nav-btn" href="residential.html">Residential Portfolio</a>
+            <a class="nav-btn" href="index.html#about">Who We Are</a>
+          </nav>
+
+          <div class="site-header__actions">
+            <a
+              class="contact-btn"
+              href="tel:+17168227677"
+              aria-label="Contact ACP Landscaping"
+            >
+              Contact Us
+            </a>
+
+            <button
+              class="burger"
+              id="burgerBtn"
+              aria-label="Open menu"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile navigation -->
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a class="mobile-link" href="index.html#home">Home</a>
+          <a class="mobile-link" href="maintenance.html">General Maintenance</a>
+          <a class="mobile-link" href="design.html">Design</a>
+          <a class="mobile-link" href="development.html">Development</a>
+          <a class="mobile-link" href="lawncare.html">Lawncare</a>
+          <a class="mobile-link" href="commercial.html">Commercial Portfolio</a>
+          <a class="mobile-link" href="residential.html"
+            >Residential Portfolio</a
+          >
+          <a class="mobile-link" href="index.html#about">Who We Are</a>
+        </div>
+      </header>
+
+      <!-- =========================================================
+           HERO — Service Introduction
+      ========================================================== -->
+      <section class="service-hero service-hero--development">
+        <div class="service-hero__overlay" aria-hidden="true"></div>
+
+        <div class="service-hero__inner">
+          <p class="service-hero__kicker">ACP Services</p>
+
+          <h1 class="service-hero__title">Landscape Development</h1>
+
+          <p class="service-hero__desc">
+            Built work that gives structure, function, and a finished feel to
+            your outdoor space — executed with clean standards and lasting
+            craftsmanship.
+          </p>
+
+          <a
+            class="service-hero__cta"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Request an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           OVERVIEW — What development includes
+      ========================================================== -->
+      <section class="service-overview">
+        <div class="service-overview__inner">
+          <p class="section-kicker">Overview</p>
+
+          <h2 class="section-title">
+            Built with purpose, function, and clean execution.
+          </h2>
+
+          <p class="section-text">
+            Our development services focus on the physical construction and
+            installation side of outdoor improvement. From patios and walkways
+            to grading, drainage, and landscape builds, ACP Landscaping brings
+            together practical function and high-end presentation so the final
+            space feels complete, durable, and intentional.
+          </p>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SERVICES GRID
+      ========================================================== -->
+      <section class="service-list">
+        <div class="service-list__inner">
+          <p class="section-kicker">What's Included</p>
+
+          <h2 class="section-title">Common development services</h2>
+
+          <div class="service-cards">
+            <article class="service-card">
+              <h3>Patios</h3>
+              <p>
+                Outdoor living areas designed to create usable, attractive space
+                for relaxing and entertaining.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Walkways</h3>
+              <p>
+                Clean, functional pathways that improve access and strengthen
+                the overall flow of the property.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Landscape Bed Installation</h3>
+              <p>
+                Full bed creation and shaping to establish structure,
+                definition, and visual impact.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Edging & Borders</h3>
+              <p>
+                Crisp transitions between lawn, beds, and hardscape areas for a
+                more finished appearance.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Grading</h3>
+              <p>
+                Surface correction and contour work that improves drainage,
+                usability, and long-term stability.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Drainage Solutions</h3>
+              <p>
+                Practical solutions to help manage water flow and reduce problem
+                areas around the property.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Planting Installations</h3>
+              <p>
+                Trees, shrubs, and accent plantings installed to complete the
+                layout and elevate the finished space.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Custom Outdoor Improvements</h3>
+              <p>
+                Tailored development work based on the needs, structure, and
+                long-term goals of your property.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FEATURE SECTION — What development adds
+      ========================================================== -->
+      <section class="service-feature">
+        <div class="service-feature__inner">
+          <div class="service-feature__content">
+            <p class="section-kicker">Why Development Matters</p>
+
+            <h2 class="section-title">
+              The structure behind a premium outdoor space.
+            </h2>
+
+            <p class="section-text service-feature__text">
+              Strong outdoor spaces are not just planted — they are built.
+              Development work creates the form, support, flow, and usability
+              that make a landscape feel complete. It connects design ideas to
+              real-world execution and ensures the property is both visually
+              strong and practically functional.
+            </p>
+          </div>
+
+          <div class="service-feature__points">
+            <article class="feature-point">
+              <h3>Function</h3>
+              <p>
+                Improves movement, usability, and the way the property performs
+                day to day.
+              </p>
+            </article>
+
+            <article class="feature-point">
+              <h3>Durability</h3>
+              <p>
+                Establishes long-term structure that holds up and supports the
+                finished space.
+              </p>
+            </article>
+
+            <article class="feature-point">
+              <h3>Presentation</h3>
+              <p>
+                Adds the crisp, finished details that make a property feel
+                higher-end and complete.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           PROCESS — How projects move forward
+      ========================================================== -->
+      <section class="service-process">
+        <div class="service-process__inner">
+          <p class="section-kicker">Our Process</p>
+
+          <h2 class="section-title">How we approach development work</h2>
+
+          <div class="service-steps">
+            <article class="service-step">
+              <span class="service-step__number">01</span>
+              <h3>Site Review</h3>
+              <p>
+                We evaluate the property, layout conditions, elevations, and
+                practical requirements of the project.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">02</span>
+              <h3>Planning</h3>
+              <p>
+                We identify the best approach for structure, flow, material use,
+                and long-term performance.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">03</span>
+              <h3>Build Execution</h3>
+              <p>
+                We complete the work with an emphasis on clean craftsmanship,
+                detail, and site presentation.
+              </p>
+            </article>
+
+            <article class="service-step">
+              <span class="service-step__number">04</span>
+              <h3>Final Finish</h3>
+              <p>
+                We make sure the completed space looks cohesive, functional, and
+                ready to be enjoyed.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           CTA
+      ========================================================== -->
+      <section class="service-cta">
+        <div class="service-cta__inner">
+          <h2>Ready to build a cleaner, stronger outdoor space?</h2>
+
+          <a
+            class="service-cta__btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Get an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FOOTER (reuses components.css)
+      ========================================================== -->
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__top">
+            <a class="site-footer__brand" href="index.html">
+              ACP Landscaping
+            </a>
+
+            <div class="site-footer__actions">
+              <a class="footer-btn" href="tel:+17168227677">Call</a>
+              <a
+                class="footer-btn footer-btn--primary"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+              >
+                Get an Estimate
+              </a>
+            </div>
+          </div>
+
+          <p class="site-footer__meta">
+            Orchard Park, NY • Serving Hamburg, East Aurora, Elma, Lancaster,
+            Buffalo, Cheektowaga, West Seneca &amp; Clarence
+          </p>
+
+          <div class="site-footer__bottom">
+            <small class="site-footer__copyright">
+              &copy; <span id="year"></span> ACP Landscaping. All Rights
+              Reserved.
+            </small>
+
+            <small class="site-footer__note">
+              Premium outdoor spaces, maintained with precision.
+            </small>
+          </div>
+        </div>
+      </footer>
+
+      <script src="js/main.js"></script>
+    </main>
+  </body>
+</html>

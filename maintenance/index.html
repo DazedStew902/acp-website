@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =========================================================
+         ACP Landscaping — General Maintenance Page
+         Uses:
+         - base.css (global foundation)
+         - components.css (header/footer/buttons)
+         - services.css (service page layouts)
+    ========================================================== -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
+
+    <title>General Maintenance | ACP Landscaping</title>
+  </head>
+
+  <body>
+    <main class="site">
+      <!-- =========================================================
+           HEADER (reuses components.css)
+      ========================================================== -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header__inner">
+          <a
+            class="site-header__logo"
+            href="index.html"
+            aria-label="ACP Landscaping Home"
+          >
+            ACP Landscaping
+          </a>
+
+          <nav class="site-header__nav" aria-label="Primary navigation">
+            <a class="nav-btn" href="index.html#home">Home</a>
+            <a class="nav-btn is-active" href="maintenance.html"
+              >General Maintenance</a
+            >
+            <a class="nav-btn" href="design.html">Design</a>
+            <a class="nav-btn" href="development.html">Development</a>
+            <a class="nav-btn" href="lawncare.html">Lawncare</a>
+            <a class="nav-btn" href="commercial.html">Commercial Portfolio</a>
+            <a class="nav-btn" href="residential.html">Residential Portfolio</a>
+            <a class="nav-btn" href="index.html#about">Who We Are</a>
+          </nav>
+
+          <div class="site-header__actions">
+            <a
+              class="contact-btn"
+              href="tel:+17168227677"
+              aria-label="Contact ACP Landscaping"
+            >
+              Contact Us
+            </a>
+
+            <button
+              class="burger"
+              id="burgerBtn"
+              aria-label="Open menu"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile navigation -->
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a class="mobile-link" href="index.html#home">Home</a>
+          <a class="mobile-link" href="maintenance.html">General Maintenance</a>
+          <a class="mobile-link" href="design.html">Design</a>
+          <a class="mobile-link" href="development.html">Development</a>
+          <a class="mobile-link" href="lawncare.html">Lawncare</a>
+          <a class="mobile-link" href="commercial.html">Commercial Portfolio</a>
+          <a class="mobile-link" href="residential.html"
+            >Residential Portfolio</a
+          >
+          <a class="mobile-link" href="index.html#about">Who We Are</a>
+        </div>
+      </header>
+
+      <!-- =========================================================
+           HERO — Service Introduction
+      ========================================================== -->
+      <section class="service-hero service-hero--maintenance">
+        <div class="service-hero__overlay" aria-hidden="true"></div>
+
+        <div class="service-hero__inner">
+          <p class="service-hero__kicker">ACP Services</p>
+
+          <h1 class="service-hero__title">General Property Maintenance</h1>
+
+          <p class="service-hero__desc">
+            Reliable, detail-focused upkeep that keeps your landscape clean,
+            healthy, and consistently well-presented throughout the season.
+          </p>
+
+          <a
+            class="service-hero__cta"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Request an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           OVERVIEW — What maintenance includes
+      ========================================================== -->
+      <section class="service-overview">
+        <div class="service-overview__inner">
+          <p class="section-kicker">Overview</p>
+
+          <h2 class="section-title">Consistent care. Clean results.</h2>
+
+          <p class="section-text">
+            Our General Maintenance service is designed for homeowners and
+            property managers who want their outdoor spaces kept sharp without
+            the stress of managing it themselves. We handle seasonal work,
+            landscape upkeep, and detail maintenance so your property stays
+            polished year-round.
+          </p>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SERVICES GRID
+      ========================================================== -->
+      <section class="service-list">
+        <div class="service-list__inner">
+          <p class="section-kicker">What's Included</p>
+
+          <h2 class="section-title">Common maintenance services</h2>
+
+          <div class="service-cards">
+            <article class="service-card">
+              <h3>Spring Cleanups</h3>
+              <p>
+                Full property reset including debris removal, pruning, edging,
+                and bed preparation.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Fall Cleanups</h3>
+              <p>
+                Leaf removal, seasonal pruning, and winter preparation for
+                landscape beds.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Mulching</h3>
+              <p>
+                Fresh mulch installation for weed suppression, moisture
+                retention, and clean visual appeal.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Weeding & Bed Care</h3>
+              <p>
+                Routine weed control and bed detailing to keep landscape beds
+                tidy.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Shrub & Hedge Trimming</h3>
+              <p>
+                Precision trimming that maintains natural plant structure and
+                healthy growth.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Pressure Washing</h3>
+              <p>
+                Cleaning patios, walkways, and hardscape areas to restore
+                appearance.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Detail Maintenance</h3>
+              <p>
+                Touch-ups and small improvements that maintain a polished
+                property appearance.
+              </p>
+            </article>
+
+            <article class="service-card">
+              <h3>Custom Maintenance Plans</h3>
+              <p>
+                Flexible service plans tailored to your property and seasonal
+                needs.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           CTA
+      ========================================================== -->
+      <section class="service-cta">
+        <div class="service-cta__inner">
+          <h2>Ready to keep your property looking its best?</h2>
+
+          <a
+            class="service-cta__btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeWHkyaBjf67iJMnTYg1LXNxVSujMJuMKG33KsOszgYHfAJeA/viewform"
+          >
+            Get an Estimate
+          </a>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FOOTER (reuses components.css)
+      ========================================================== -->
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__top">
+            <a class="site-footer__brand" href="index.html">
+              ACP Landscaping
+            </a>
+
+            <div class="site-footer__actions">
+              <a class="footer-btn" href="tel:+17168227677">Call</a>
+              <a class="footer-btn footer-btn--primary" href="#"
+                >Get an Estimate</a
+              >
+            </div>
+          </div>
+
+          <p class="site-footer__meta">
+            Orchard Park, NY • Serving Hamburg, East Aurora, Elma, Lancaster,
+            Buffalo, Cheektowaga, West Seneca & Clarence
+          </p>
+
+          <div class="site-footer__bottom">
+            <small>&copy; <span id="year"></span> ACP Landscaping</small>
+          </div>
+        </div>
+      </footer>
+
+      <script src="js/main.js"></script>
+    </main>
+  </body>
+</html>
